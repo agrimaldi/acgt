@@ -13,6 +13,7 @@
 #define NODE_INIT_ERROR -1
 #define CHILDREN_REALLOC_ERROR 1
 #define POSITIONS_REALLOC_ERROR 2
+#define MER_ALLOC_ERROR 3
 
 
 typedef struct Node Node;
@@ -34,7 +35,7 @@ struct Node
 	Node* ( *GetChild ) ( Node*, char );
 	int ( *HasChildren ) ( Node* );
 	int ( *AddPosition ) ( Node*, int );
-	void ( *Build ) ( Node*, int, char* );
+	int ( *Build ) ( Node*, int, char* );
 	int* ( *GetPositions ) ( Node*, char*, int );
 };
 
@@ -53,8 +54,9 @@ int Node_HasChildren( Node *This );
 
 int Node_AddPosition( Node *This, int position );
 
-void Node_Build( Node *This, int merLength, char *targetSequence );
+int Node_Build( Node *This, int merLength, char *targetSequence );
 
 int* Node_GetPositions( Node *This, char *mer, int verbose );
+
 
 #endif

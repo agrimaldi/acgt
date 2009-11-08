@@ -18,9 +18,8 @@ Node* New_Node( char data, Node *parent )
 {
 	Node *This = malloc( sizeof( Node ) );
 	
-	if ( !This )
+	if ( This == NULL )
 	{
-		printf( "Tree Failed to initialize" );
 		return NULL;
 	}
 	
@@ -38,15 +37,13 @@ static int Node_Init( Node *This, char data, Node *parent )
 	
 	Node **children = (Node**) malloc( sizeof( Node* ) );
 	
-	if ( !positions )
+	if ( positions == NULL )
 	{
-		printf( "Positions Failed to initialize" );
 		return NODE_INIT_ERROR;
 	}
 	
-	if ( !children )
+	if ( children == NULL )
 	{
-		printf( "Children Failed to initialize" );
 		return NODE_INIT_ERROR;
 	}
 	
@@ -91,19 +88,17 @@ int Node_AddChild( Node *This, Node *child )
 {
 	This->children = (Node**) realloc( This->children, ( This->nchild + 1 ) * sizeof( Node* ) );
 
-	if ( This->children != NULL )
-	{
-		This->children[ This->nchild ] = child;
-
-		This->children[ This->nchild ]->parent = This;
-
-		This->nchild++;
-	}
-	else
+	if ( This->children == NULL )
 	{
 		return CHILDREN_REALLOC_ERROR;
 	}
-
+	
+	This->children[ This->nchild ] = child;
+	
+	This->children[ This->nchild ]->parent = This;
+	
+	This->nchild++;
+	
 	return 0;
 }
 
@@ -126,12 +121,12 @@ Node* Node_GetChild( Node *This, char data )
 
 int Node_HasChildren( Node *This )
 {
-	if ( This->nchild > 0 )
+	if ( This->nchild == 0 )
 	{
-		return 1;
+		return 0;
 	}
 	
-	return 0;
+	return 1;
 }
 
 
@@ -139,22 +134,20 @@ int Node_AddPosition( Node *This, int position )
 {
 	This->positions = (int*) realloc( This->positions, ( This->npos + 1 ) * sizeof( int ) );
 	
-	if ( This->positions != NULL )
+	if ( This->positions == NULL )
 	{
-		This->positions[ This->npos ] = position;
-		
-		This->npos++;
+		return POSITIONS_REALLOC_ERROR;	
 	}
-	else
-	{
-		return POSITIONS_REALLOC_ERROR;
-	}
+	
+	This->positions[ This->npos ] = position;
+	
+	This->npos++;
 	
 	return 0;
 }
 
 
-void Node_Build( Node *This, int merLength, char *targetSequence )
+int Node_Build( Node *This, int merLength, char *targetSequence )
 {
 	register int i;
 	register int j;
@@ -162,6 +155,11 @@ void Node_Build( Node *This, int merLength, char *targetSequence )
 	char *mer;
 	
 	mer = (char*) malloc( ( merLength + 1 ) * sizeof( char ) );
+	
+	if ( mer == NULL )
+	{
+		return MER_ALLOC_ERROR;
+	}
 	
 	seqLength = strlen( targetSequence ) - merLength + 1; 
 	
@@ -196,6 +194,8 @@ void Node_Build( Node *This, int merLength, char *targetSequence )
 	}
 	
 	free( mer );
+	
+	return 0;
 }
 
 
@@ -207,10 +207,12 @@ int* Node_GetPositions( Node *This, char *mer, int verbose )
 	
 	for ( i = 0; i < strlen( mer ); i++ )
 	{
-		if ( ( tmp_node = tmp_node->GetChild( tmp_node, mer[ i ] ) ) == NULL )
+		tmp_node = tmp_node->GetChild( tmp_node, mer[ i ] );
+		
+		if ( tmp_node == NULL )
 		{
 			return NULL;
-		}		
+		}
 	}
 	
 	if ( verbose )
