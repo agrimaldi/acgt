@@ -35,7 +35,7 @@ struct Node
 	int ( *HasChildren ) ( Node* );
 	int ( *AddPosition ) ( Node*, int );
 	void ( *Build ) ( Node*, int, char* );
-	int ( *GetPositions ) ( Node*, char* );
+	int* ( *GetPositions ) ( Node*, char*, int );
 };
 
 
@@ -55,6 +55,6 @@ int Node_AddPosition( Node *This, int position );
 
 void Node_Build( Node *This, int merLength, char *targetSequence );
 
-int* Node_GetPositions( Node *This, char *mer );
+int* Node_GetPositions( Node *This, char *mer, int verbose );
 
 #endif

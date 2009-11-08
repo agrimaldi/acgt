@@ -62,6 +62,7 @@ static int Node_Init( Node *This, char data, Node *parent )
 	This->HasChildren = Node_HasChildren;
 	This->AddPosition = Node_AddPosition;
 	This->Build = Node_Build;
+	This->GetPositions = Node_GetPositions;
 	
 	return 0;
 }
@@ -165,7 +166,7 @@ void Node_Build( Node *This, int merLength, char *targetSequence )
 	seqLength = strlen( targetSequence ) - merLength + 1; 
 	
 	Node *node = This;
-	Node *t_node = NULL;
+	Node *tmp_node = NULL;
 	
 	for ( i = 0; i < seqLength ; i++ )
 	{
@@ -175,13 +176,13 @@ void Node_Build( Node *This, int merLength, char *targetSequence )
 		{
 			if ( node->GetChild( node, mer[ j ] ) == NULL )
 			{
-				t_node = New_Node( mer[ j ], NULL );
+				tmp_node = New_Node( mer[ j ], NULL );
 				
-				node->AddChild( node, t_node );
+				node->AddChild( node, tmp_node );
 				
 				node->AddPosition( node, i );
 				
-				node = t_node;
+				node = tmp_node;
 			}
 			else
 			{
@@ -198,12 +199,27 @@ void Node_Build( Node *This, int merLength, char *targetSequence )
 }
 
 
-int* Node_GetPositions( Node *This, char *mer )
+int* Node_GetPositions( Node *This, char *mer, int verbose )
 {
 	register int i;
 	
+	Node *tmp_node = This;
+	
 	for ( i = 0; i < strlen( mer ); i++ )
 	{
-		
+		if ( ( tmp_node = tmp_node->GetChild( tmp_node, mer[ i ] ) ) == NULL )
+		{
+			return NULL;
+		}		
 	}
+	
+	if ( verbose )
+	{
+		for ( i = 0; i < tmp_node->npos; i++ )
+		{
+			printf( "%i\n", tmp_node->positions[ i ] );
+		}
+	}
+	
+	return tmp_node->positions;
 }

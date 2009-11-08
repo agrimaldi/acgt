@@ -44,7 +44,7 @@ char* randseq( int size )
 
 int main (int argc, const char * argv[]) {
 	
-	char *s = randseq( 800000 );
+	char *s = randseq( 10000000 );
 //	char *s = "tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaaacggtcaggactgtttgat";
 /*
 tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaaacggtcaggactgtttgat
@@ -53,13 +53,14 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 //	printf("%s\n", s);
 
 	Node *root = New_Node( '0', NULL );
-	root->Build( root, 20, s );
+
+	root->Build( root, 5, s );
 	
 	printf("Tree built\n");
-//	for ( i = 0; i < Node_GetChild( Node_GetChild(Node_GetChild(root, 'g'), 'g'), 'a' )->npos; i++)
-//	{
-//		printf("ta : %i\n", Node_GetChild( Node_GetChild(Node_GetChild(root, 'g'), 'g'), 'a' )->positions[ i ] );
-//	}
+	
+//	root->GetPositions( root, "ttcgaa", 1 );
+	
+	getchar();
 	
 	root->Free( root );
 	
