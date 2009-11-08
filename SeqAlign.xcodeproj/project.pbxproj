@@ -1,0 +1,315 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8DD76FAC0486AB0100D96B5E /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.c */; settings = {ATTRIBUTES = (); }; };
+		8DD76FB00486AB0100D96B5E /* SeqAlign.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6A0FF2C0290799A04C91782 /* SeqAlign.1 */; };
+		E8337AE2109E026300682D54 /* Sequence.c in Sources */ = {isa = PBXBuildFile; fileRef = E8337AE1109E026300682D54 /* Sequence.c */; };
+		E8953002108F669200089EB0 /* Cell.c in Sources */ = {isa = PBXBuildFile; fileRef = E8953001108F669200089EB0 /* Cell.c */; };
+		E8B156DA1090ED2A00697971 /* Matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B156D91090ED2A00697971 /* Matrix.c */; };
+		E8D4542710A5A92B00072869 /* Tree.c in Sources */ = {isa = PBXBuildFile; fileRef = E8D4542610A5A92B00072869 /* Tree.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8DD76FAF0486AB0100D96B5E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				8DD76FB00486AB0100D96B5E /* SeqAlign.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		08FB7796FE84155DC02AAC07 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		8DD76FB20486AB0100D96B5E /* SeqAlign */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SeqAlign; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6A0FF2C0290799A04C91782 /* SeqAlign.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = SeqAlign.1; sourceTree = "<group>"; };
+		E8337AE0109E026300682D54 /* Sequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sequence.h; sourceTree = "<group>"; };
+		E8337AE1109E026300682D54 /* Sequence.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Sequence.c; sourceTree = "<group>"; };
+		E8953000108F669200089EB0 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
+		E8953001108F669200089EB0 /* Cell.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Cell.c; sourceTree = "<group>"; };
+		E8B156D81090ED2A00697971 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
+		E8B156D91090ED2A00697971 /* Matrix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Matrix.c; sourceTree = "<group>"; };
+		E8D4542510A5A92B00072869 /* Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tree.h; sourceTree = "<group>"; };
+		E8D4542610A5A92B00072869 /* Tree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Tree.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DD76FAD0486AB0100D96B5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* SeqAlign */ = {
+			isa = PBXGroup;
+			children = (
+				08FB7795FE84155DC02AAC07 /* Source */,
+				C6A0FF2B0290797F04C91782 /* Documentation */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+			);
+			name = SeqAlign;
+			sourceTree = "<group>";
+		};
+		08FB7795FE84155DC02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				E8337ADC109DFE8A00682D54 /* Sequence */,
+				E8337AD5109DFE1B00682D54 /* Data */,
+				E8952FFE108F660600089EB0 /* Alignments */,
+				08FB7796FE84155DC02AAC07 /* main.c */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DD76FB20486AB0100D96B5E /* SeqAlign */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C6A0FF2B0290797F04C91782 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				C6A0FF2C0290799A04C91782 /* SeqAlign.1 */,
+			);
+			name = Documentation;
+			sourceTree = "<group>";
+		};
+		E8337AD5109DFE1B00682D54 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E89D8A6410A4EBC000F63CC5 /* SimilarityMatrices */,
+				E8337AD7109DFE2800682D54 /* CodonTable */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		E8337AD7109DFE2800682D54 /* CodonTable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CodonTable;
+			sourceTree = "<group>";
+		};
+		E8337ADC109DFE8A00682D54 /* Sequence */ = {
+			isa = PBXGroup;
+			children = (
+				E8337AE0109E026300682D54 /* Sequence.h */,
+				E8337AE1109E026300682D54 /* Sequence.c */,
+			);
+			name = Sequence;
+			sourceTree = "<group>";
+		};
+		E8337ADE109DFED400682D54 /* Pairwise */ = {
+			isa = PBXGroup;
+			children = (
+				E8952FFF108F665100089EB0 /* Structures */,
+			);
+			name = Pairwise;
+			sourceTree = "<group>";
+		};
+		E8952FFE108F660600089EB0 /* Alignments */ = {
+			isa = PBXGroup;
+			children = (
+				E8D4542310A5A90000072869 /* Mapping */,
+				E8337ADE109DFED400682D54 /* Pairwise */,
+			);
+			name = Alignments;
+			sourceTree = "<group>";
+		};
+		E8952FFF108F665100089EB0 /* Structures */ = {
+			isa = PBXGroup;
+			children = (
+				E8953000108F669200089EB0 /* Cell.h */,
+				E8953001108F669200089EB0 /* Cell.c */,
+				E8B156D81090ED2A00697971 /* Matrix.h */,
+				E8B156D91090ED2A00697971 /* Matrix.c */,
+			);
+			name = Structures;
+			sourceTree = "<group>";
+		};
+		E89D8A6410A4EBC000F63CC5 /* SimilarityMatrices */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SimilarityMatrices;
+			sourceTree = "<group>";
+		};
+		E8D4542310A5A90000072869 /* Mapping */ = {
+			isa = PBXGroup;
+			children = (
+				E8D4542410A5A90A00072869 /* Structures */,
+			);
+			name = Mapping;
+			sourceTree = "<group>";
+		};
+		E8D4542410A5A90A00072869 /* Structures */ = {
+			isa = PBXGroup;
+			children = (
+				E8D4542510A5A92B00072869 /* Tree.h */,
+				E8D4542610A5A92B00072869 /* Tree.c */,
+			);
+			name = Structures;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8DD76FA90486AB0100D96B5E /* SeqAlign */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB928508733DD80010E9CD /* Build configuration list for PBXNativeTarget "SeqAlign" */;
+			buildPhases = (
+				8DD76FAB0486AB0100D96B5E /* Sources */,
+				8DD76FAD0486AB0100D96B5E /* Frameworks */,
+				8DD76FAF0486AB0100D96B5E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SeqAlign;
+			productInstallPath = "$(HOME)/bin";
+			productName = SeqAlign;
+			productReference = 8DD76FB20486AB0100D96B5E /* SeqAlign */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB928908733DD80010E9CD /* Build configuration list for PBXProject "SeqAlign" */;
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* SeqAlign */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DD76FA90486AB0100D96B5E /* SeqAlign */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DD76FAB0486AB0100D96B5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DD76FAC0486AB0100D96B5E /* main.c in Sources */,
+				E8953002108F669200089EB0 /* Cell.c in Sources */,
+				E8B156DA1090ED2A00697971 /* Matrix.c in Sources */,
+				E8337AE2109E026300682D54 /* Sequence.c in Sources */,
+				E8D4542710A5A92B00072869 /* Tree.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB928608733DD80010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = SeqAlign;
+			};
+			name = Debug;
+		};
+		1DEB928708733DD80010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = SeqAlign;
+			};
+			name = Release;
+		};
+		1DEB928A08733DD80010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB928B08733DD80010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				DEPLOYMENT_POSTPROCESSING = NO;
+				GCC_AUTO_VECTORIZATION = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_ENABLE_SSE3_EXTENSIONS = YES;
+				GCC_ENABLE_SSE41_EXTENSIONS = YES;
+				GCC_ENABLE_SSE42_EXTENSIONS = YES;
+				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
+				GCC_FAST_OBJC_DISPATCH = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_PPC64 = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_STRICT_ALIASING = YES;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+				VERSIONING_SYSTEM = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB928508733DD80010E9CD /* Build configuration list for PBXNativeTarget "SeqAlign" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB928608733DD80010E9CD /* Debug */,
+				1DEB928708733DD80010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB928908733DD80010E9CD /* Build configuration list for PBXProject "SeqAlign" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB928A08733DD80010E9CD /* Debug */,
+				1DEB928B08733DD80010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}
