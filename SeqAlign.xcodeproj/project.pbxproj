@@ -11,6 +11,7 @@
 		8DD76FB00486AB0100D96B5E /* SeqAlign.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6A0FF2C0290799A04C91782 /* SeqAlign.1 */; };
 		E8337AE2109E026300682D54 /* Sequence.c in Sources */ = {isa = PBXBuildFile; fileRef = E8337AE1109E026300682D54 /* Sequence.c */; };
 		E8953002108F669200089EB0 /* Cell.c in Sources */ = {isa = PBXBuildFile; fileRef = E8953001108F669200089EB0 /* Cell.c */; };
+		E8A733C010A8A1CA00C23E49 /* Utils.c in Sources */ = {isa = PBXBuildFile; fileRef = E8A733BF10A8A1CA00C23E49 /* Utils.c */; };
 		E8B156DA1090ED2A00697971 /* Matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B156D91090ED2A00697971 /* Matrix.c */; };
 		E8D4542710A5A92B00072869 /* Tree.c in Sources */ = {isa = PBXBuildFile; fileRef = E8D4542610A5A92B00072869 /* Tree.c */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,8 @@
 		E8337AE1109E026300682D54 /* Sequence.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Sequence.c; sourceTree = "<group>"; };
 		E8953000108F669200089EB0 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
 		E8953001108F669200089EB0 /* Cell.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Cell.c; sourceTree = "<group>"; };
+		E8A733BE10A8A1CA00C23E49 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		E8A733BF10A8A1CA00C23E49 /* Utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Utils.c; sourceTree = "<group>"; };
 		E8B156D81090ED2A00697971 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
 		E8B156D91090ED2A00697971 /* Matrix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Matrix.c; sourceTree = "<group>"; };
 		E8D4542510A5A92B00072869 /* Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tree.h; sourceTree = "<group>"; };
@@ -70,6 +73,8 @@
 				E8337AD5109DFE1B00682D54 /* Data */,
 				E8952FFE108F660600089EB0 /* Alignments */,
 				08FB7796FE84155DC02AAC07 /* main.c */,
+				E8A733BE10A8A1CA00C23E49 /* Utils.h */,
+				E8A733BF10A8A1CA00C23E49 /* Utils.c */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -215,6 +220,7 @@
 				E8B156DA1090ED2A00697971 /* Matrix.c in Sources */,
 				E8337AE2109E026300682D54 /* Sequence.c in Sources */,
 				E8D4542710A5A92B00072869 /* Tree.c in Sources */,
+				E8A733C010A8A1CA00C23E49 /* Utils.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +257,9 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DEBUGGING_SYMBOLS = full;
+				GCC_MODEL_PPC64 = NO;
+				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -263,14 +272,18 @@
 		1DEB928B08733DD80010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				DEPLOYMENT_POSTPROCESSING = NO;
-				GCC_AUTO_VECTORIZATION = YES;
+				GCC_AUTO_VECTORIZATION = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_ENABLE_SSE3_EXTENSIONS = YES;
-				GCC_ENABLE_SSE41_EXTENSIONS = YES;
-				GCC_ENABLE_SSE42_EXTENSIONS = YES;
+				GCC_ENABLE_SSE3_EXTENSIONS = NO;
+				GCC_ENABLE_SSE41_EXTENSIONS = NO;
+				GCC_ENABLE_SSE42_EXTENSIONS = NO;
 				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
 				GCC_FAST_OBJC_DISPATCH = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -282,7 +295,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
+				PREBINDING = YES;
+				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = macosx10.6;
 				VERSIONING_SYSTEM = "";
 			};

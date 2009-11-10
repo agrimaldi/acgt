@@ -11,10 +11,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "Utils.h"
 #include "Tree.h"
 
 
-Node* New_Node( char data, Node *parent )
+Node* New_Node( char data )
 {
 	Node *This = malloc( sizeof( Node ) );
 	
@@ -23,15 +24,13 @@ Node* New_Node( char data, Node *parent )
 		return NULL;
 	}
 	
-	Node_Init( This, data, parent );
-	
-	This->Free = Node_Free;
+	Node_Init( This, data );
 	
 	return This;
 }
 
 
-static int Node_Init( Node *This, char data, Node *parent )
+static int Node_Init( Node *This, char data )
 {
 	int *positions = (int*) malloc( sizeof( int ) );
 	
@@ -51,16 +50,8 @@ static int Node_Init( Node *This, char data, Node *parent )
 	This->nchild = 0;
 	This->npos = 0;
 	This->positions = positions;
-	This->parent = parent;
 	This->children = children;
-	
-	This->AddChild = Node_AddChild;
-	This->GetChild = Node_GetChild;
-	This->HasChildren = Node_HasChildren;
-	This->AddPosition = Node_AddPosition;
-	This->Build = Node_Build;
-	This->GetPositions = Node_GetPositions;
-	
+
 	return 0;
 }
 
@@ -94,9 +85,7 @@ int Node_AddChild( Node *This, Node *child )
 	}
 	
 	This->children[ This->nchild ] = child;
-	
-	This->children[ This->nchild ]->parent = This;
-	
+
 	This->nchild++;
 	
 	return 0;
@@ -147,67 +136,87 @@ int Node_AddPosition( Node *This, int position )
 }
 
 
-int Node_Build( Node *This, int merLength, char *targetSequence )
+int Node_Build( Node *This, char *targetSequence, int depth, int* readLengths )
 {
 	register int i;
-	register int j;
+	register int cur_depth;
+	register int k;
 	register int seqLength;
-	char *mer;
+	int num_readlengths;
+	char *tmp_read;
 	
-	mer = (char*) malloc( ( merLength + 1 ) * sizeof( char ) );
+	depth += 1 ;
 	
-	if ( mer == NULL )
+	tmp_read = (char*) malloc( ( depth ) * sizeof( char ) );
+	
+	if ( tmp_read == NULL )
 	{
 		return MER_ALLOC_ERROR;
 	}
 	
-	seqLength = strlen( targetSequence ) - merLength + 1; 
+	num_readlengths = intArrayLength( readLengths );
+	
+	seqLength = strlen( targetSequence ) - depth + 1; 
 	
 	Node *node = This;
 	Node *tmp_node = NULL;
 	
 	for ( i = 0; i < seqLength ; i++ )
 	{
-		strncpy( mer, targetSequence + i, merLength);
+		strncpy( tmp_read, targetSequence + i, depth);
 		
-		for ( j = 0; j < merLength; j++ )
+		for ( cur_depth = 0; cur_depth < depth; cur_depth++ )
 		{
-			if ( node->GetChild( node, mer[ j ] ) == NULL )
+			if ( Node_GetChild( node, tmp_read[ cur_depth ] ) == NULL )
 			{
-				tmp_node = New_Node( mer[ j ], NULL );
+				tmp_node = New_Node( tmp_read[ cur_depth ] );
 				
-				node->AddChild( node, tmp_node );
+				Node_AddChild( node, tmp_node );
 				
-				node->AddPosition( node, i );
+				for ( k = 0; k < num_readlengths; k++ )
+				{
+					if ( readLengths[ k ] == cur_depth )
+					{
+						Node_AddPosition( node, i );
+						break;
+					}
+				}
 				
 				node = tmp_node;
 			}
 			else
 			{
-				node->AddPosition( node, i );
+				for ( k = 0; k < num_readlengths; k++ )
+				{
+					if ( readLengths[ k ] == cur_depth )
+					{
+						Node_AddPosition( node, i );
+						break;
+					}
+				}
 				
-				node = node->GetChild( node, mer[ j ] );
+				node = Node_GetChild( node, tmp_read[ cur_depth ] );
 			}
 		}
 		
 		node = This;
 	}
 	
-	free( mer );
+	free( tmp_read );
 	
 	return 0;
 }
 
 
-int* Node_GetPositions( Node *This, char *mer, int verbose )
+int* Node_GetPositions( Node *This, char *read, int verbose )
 {
 	register int i;
 	
 	Node *tmp_node = This;
 	
-	for ( i = 0; i < strlen( mer ); i++ )
+	for ( i = 0; i < strlen( read ); i++ )
 	{
-		tmp_node = tmp_node->GetChild( tmp_node, mer[ i ] );
+		tmp_node = Node_GetChild( tmp_node, read[ i ] );
 		
 		if ( tmp_node == NULL )
 		{

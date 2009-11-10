@@ -13,26 +13,29 @@ int main (int argc, const char * argv[]) {
 /*
 tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaaacggtcaggactgtttgat
 */
-//	char *s = "tggatggagaggtaaatgcctcagtacgatcgatcgactagctagctacgatcgtacgtactactatatatattcggcggcgactcatccgctagctacgtacgactgcaatatataaatgactacgacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaaacggtcaggactgtttgat";
-
+//	char *s = "tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaaacggtcaggactgtttgat";
 	Sequence *s = New_Sequence( NULL );
 	
-	s->sequence = s->Random( s, 500000 );
-
-	printf("sequence genereated\n");
+	s->sequence = s->Random( s, 1000000 );
 	
-	Node *root = New_Node( '0', NULL );
-
-	root->Build( root, 20, s->sequence );
+	printf( "sequence genereated\n" );
+	
+	Node *root = New_Node( '0' );
+	
+	printf( "Size of a NODE : %ld\n", sizeof( *root ) );
+	
+	int readLengths[] = { 5 };
+	
+	Node_Build( root, s->sequence, 5, readLengths );
 	
 	printf("Tree built\n");
 	
-	root->GetPositions( root, "ttcgaa", 1 );
-	
+//	Node_GetPositions( root, "ttttt", 1 );
+
 	getchar();
-
-	root->Free( root );	
-
+	
+	Node_Free( root );	
+	
 	s->Free( s );
 	
     return 0;

@@ -21,28 +21,17 @@ typedef struct Node Node;
 
 struct Node
 {
-	/* Attributes */
-	char data;
+	Node **children;
+	int *positions;
 	int nchild;
 	int npos;
-	int *positions;
-	Node *parent;
-	Node **children;
-	
-	/* Methods */
-	void ( *Free ) ( Node* );
-	int ( *AddChild ) ( Node*, Node* );
-	Node* ( *GetChild ) ( Node*, char );
-	int ( *HasChildren ) ( Node* );
-	int ( *AddPosition ) ( Node*, int );
-	int ( *Build ) ( Node*, int, char* );
-	int* ( *GetPositions ) ( Node*, char*, int );
+	char data;
 };
 
 
-Node* New_Node( char data, Node *parent );
+Node* New_Node( char data );
 
-static int Node_Init( Node *This, char data, Node *parent );
+static int Node_Init( Node *This, char data );
 
 void Node_Free( Node *This );
 
@@ -54,9 +43,9 @@ int Node_HasChildren( Node *This );
 
 int Node_AddPosition( Node *This, int position );
 
-int Node_Build( Node *This, int merLength, char *targetSequence );
+int Node_Build( Node *This, char *targetSequence, int depth, int* readLengths );
 
-int* Node_GetPositions( Node *This, char *mer, int verbose );
+int* Node_GetPositions( Node *This, char *read, int verbose );
 
 
 #endif
