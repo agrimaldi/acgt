@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		8DD76FAC0486AB0100D96B5E /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.c */; settings = {ATTRIBUTES = (); }; };
 		8DD76FB00486AB0100D96B5E /* SeqAlign.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6A0FF2C0290799A04C91782 /* SeqAlign.1 */; };
-		E8337AE2109E026300682D54 /* Sequence.c in Sources */ = {isa = PBXBuildFile; fileRef = E8337AE1109E026300682D54 /* Sequence.c */; };
-		E8953002108F669200089EB0 /* Cell.c in Sources */ = {isa = PBXBuildFile; fileRef = E8953001108F669200089EB0 /* Cell.c */; };
 		E8A733C010A8A1CA00C23E49 /* Utils.c in Sources */ = {isa = PBXBuildFile; fileRef = E8A733BF10A8A1CA00C23E49 /* Utils.c */; };
-		E8B156DA1090ED2A00697971 /* Matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B156D91090ED2A00697971 /* Matrix.c */; };
-		E8D4542710A5A92B00072869 /* Tree.c in Sources */ = {isa = PBXBuildFile; fileRef = E8D4542610A5A92B00072869 /* Tree.c */; };
+		E8C674AC10A9FB8800B400D3 /* Tree.c in Sources */ = {isa = PBXBuildFile; fileRef = E8C674A410A9FB8800B400D3 /* Tree.c */; };
+		E8C674AD10A9FB8800B400D3 /* Cell.c in Sources */ = {isa = PBXBuildFile; fileRef = E8C674A810A9FB8800B400D3 /* Cell.c */; };
+		E8C674AE10A9FB8800B400D3 /* Matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = E8C674AA10A9FB8800B400D3 /* Matrix.c */; };
+		E8C674B210A9FBA000B400D3 /* Sequence.c in Sources */ = {isa = PBXBuildFile; fileRef = E8C674B010A9FBA000B400D3 /* Sequence.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,16 +33,16 @@
 		08FB7796FE84155DC02AAC07 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		8DD76FB20486AB0100D96B5E /* SeqAlign */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SeqAlign; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6A0FF2C0290799A04C91782 /* SeqAlign.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = SeqAlign.1; sourceTree = "<group>"; };
-		E8337AE0109E026300682D54 /* Sequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sequence.h; sourceTree = "<group>"; };
-		E8337AE1109E026300682D54 /* Sequence.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Sequence.c; sourceTree = "<group>"; };
-		E8953000108F669200089EB0 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
-		E8953001108F669200089EB0 /* Cell.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Cell.c; sourceTree = "<group>"; };
 		E8A733BE10A8A1CA00C23E49 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		E8A733BF10A8A1CA00C23E49 /* Utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Utils.c; sourceTree = "<group>"; };
-		E8B156D81090ED2A00697971 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
-		E8B156D91090ED2A00697971 /* Matrix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Matrix.c; sourceTree = "<group>"; };
-		E8D4542510A5A92B00072869 /* Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tree.h; sourceTree = "<group>"; };
-		E8D4542610A5A92B00072869 /* Tree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Tree.c; sourceTree = "<group>"; };
+		E8C674A410A9FB8800B400D3 /* Tree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Tree.c; sourceTree = "<group>"; };
+		E8C674A510A9FB8800B400D3 /* Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tree.h; sourceTree = "<group>"; };
+		E8C674A810A9FB8800B400D3 /* Cell.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Cell.c; sourceTree = "<group>"; };
+		E8C674A910A9FB8800B400D3 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
+		E8C674AA10A9FB8800B400D3 /* Matrix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Matrix.c; sourceTree = "<group>"; };
+		E8C674AB10A9FB8800B400D3 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
+		E8C674B010A9FBA000B400D3 /* Sequence.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Sequence.c; sourceTree = "<group>"; };
+		E8C674B110A9FBA000B400D3 /* Sequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sequence.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,9 +69,9 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				E8337ADC109DFE8A00682D54 /* Sequence */,
+				E8C674AF10A9FBA000B400D3 /* Sequence */,
+				E8C674A110A9FB8800B400D3 /* Alignments */,
 				E8337AD5109DFE1B00682D54 /* Data */,
-				E8952FFE108F660600089EB0 /* Alignments */,
 				08FB7796FE84155DC02AAC07 /* main.c */,
 				E8A733BE10A8A1CA00C23E49 /* Utils.h */,
 				E8A733BF10A8A1CA00C23E49 /* Utils.c */,
@@ -111,43 +111,6 @@
 			name = CodonTable;
 			sourceTree = "<group>";
 		};
-		E8337ADC109DFE8A00682D54 /* Sequence */ = {
-			isa = PBXGroup;
-			children = (
-				E8337AE0109E026300682D54 /* Sequence.h */,
-				E8337AE1109E026300682D54 /* Sequence.c */,
-			);
-			name = Sequence;
-			sourceTree = "<group>";
-		};
-		E8337ADE109DFED400682D54 /* Pairwise */ = {
-			isa = PBXGroup;
-			children = (
-				E8952FFF108F665100089EB0 /* Structures */,
-			);
-			name = Pairwise;
-			sourceTree = "<group>";
-		};
-		E8952FFE108F660600089EB0 /* Alignments */ = {
-			isa = PBXGroup;
-			children = (
-				E8D4542310A5A90000072869 /* Mapping */,
-				E8337ADE109DFED400682D54 /* Pairwise */,
-			);
-			name = Alignments;
-			sourceTree = "<group>";
-		};
-		E8952FFF108F665100089EB0 /* Structures */ = {
-			isa = PBXGroup;
-			children = (
-				E8953000108F669200089EB0 /* Cell.h */,
-				E8953001108F669200089EB0 /* Cell.c */,
-				E8B156D81090ED2A00697971 /* Matrix.h */,
-				E8B156D91090ED2A00697971 /* Matrix.c */,
-			);
-			name = Structures;
-			sourceTree = "<group>";
-		};
 		E89D8A6410A4EBC000F63CC5 /* SimilarityMatrices */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,21 +118,58 @@
 			name = SimilarityMatrices;
 			sourceTree = "<group>";
 		};
-		E8D4542310A5A90000072869 /* Mapping */ = {
+		E8C674A110A9FB8800B400D3 /* Alignments */ = {
 			isa = PBXGroup;
 			children = (
-				E8D4542410A5A90A00072869 /* Structures */,
+				E8C674A210A9FB8800B400D3 /* Mapping */,
+				E8C674A610A9FB8800B400D3 /* Pairwise */,
 			);
-			name = Mapping;
+			path = Alignments;
 			sourceTree = "<group>";
 		};
-		E8D4542410A5A90A00072869 /* Structures */ = {
+		E8C674A210A9FB8800B400D3 /* Mapping */ = {
 			isa = PBXGroup;
 			children = (
-				E8D4542510A5A92B00072869 /* Tree.h */,
-				E8D4542610A5A92B00072869 /* Tree.c */,
+				E8C674A310A9FB8800B400D3 /* Structures */,
 			);
-			name = Structures;
+			path = Mapping;
+			sourceTree = "<group>";
+		};
+		E8C674A310A9FB8800B400D3 /* Structures */ = {
+			isa = PBXGroup;
+			children = (
+				E8C674A410A9FB8800B400D3 /* Tree.c */,
+				E8C674A510A9FB8800B400D3 /* Tree.h */,
+			);
+			path = Structures;
+			sourceTree = "<group>";
+		};
+		E8C674A610A9FB8800B400D3 /* Pairwise */ = {
+			isa = PBXGroup;
+			children = (
+				E8C674A710A9FB8800B400D3 /* Structures */,
+			);
+			path = Pairwise;
+			sourceTree = "<group>";
+		};
+		E8C674A710A9FB8800B400D3 /* Structures */ = {
+			isa = PBXGroup;
+			children = (
+				E8C674A810A9FB8800B400D3 /* Cell.c */,
+				E8C674A910A9FB8800B400D3 /* Cell.h */,
+				E8C674AA10A9FB8800B400D3 /* Matrix.c */,
+				E8C674AB10A9FB8800B400D3 /* Matrix.h */,
+			);
+			path = Structures;
+			sourceTree = "<group>";
+		};
+		E8C674AF10A9FBA000B400D3 /* Sequence */ = {
+			isa = PBXGroup;
+			children = (
+				E8C674B010A9FBA000B400D3 /* Sequence.c */,
+				E8C674B110A9FBA000B400D3 /* Sequence.h */,
+			);
+			path = Sequence;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,11 +216,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DD76FAC0486AB0100D96B5E /* main.c in Sources */,
-				E8953002108F669200089EB0 /* Cell.c in Sources */,
-				E8B156DA1090ED2A00697971 /* Matrix.c in Sources */,
-				E8337AE2109E026300682D54 /* Sequence.c in Sources */,
-				E8D4542710A5A92B00072869 /* Tree.c in Sources */,
 				E8A733C010A8A1CA00C23E49 /* Utils.c in Sources */,
+				E8C674AC10A9FB8800B400D3 /* Tree.c in Sources */,
+				E8C674AD10A9FB8800B400D3 /* Cell.c in Sources */,
+				E8C674AE10A9FB8800B400D3 /* Matrix.c in Sources */,
+				E8C674B210A9FBA000B400D3 /* Sequence.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
