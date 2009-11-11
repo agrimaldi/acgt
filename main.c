@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "Utils.h"
 #include "Sequence.h"
 #include "Cell.h"
 #include "Matrix.h"
@@ -30,7 +31,7 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 	
 	printf("Tree built\n");
 	
-//	Node_GetPositions( root, "ttttt", 1 );
+//	Node_PrintIndexes( Node_GetReadIndexes( root, "ttt" ) );
 
 //	getchar();
 	

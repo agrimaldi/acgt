@@ -7,4 +7,5 @@
  *
  */
 
-int intArrayLength( int *array );
+int
+intArrayLength(		int					*array );

@@ -7,10 +7,12 @@
  *
  */
 
+
 #include "Utils.h"
 
 
-int intArrayLength( int *array )
+int
+intArrayLength(		int		*array )
 {
-	return sizeof( array ) / sizeof( int );
+	return ( sizeof( array ) / sizeof( int ) );
 }

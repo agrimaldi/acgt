@@ -29,23 +29,47 @@ struct Node
 };
 
 
-Node* New_Node( char data );
+Node*
+New_Node(					char	data );
 
-static int Node_Init( Node *This, char data );
 
-void Node_Free( Node *This );
+void
+Node_Free(					Node	*This );
 
-int Node_AddChild( Node *This, Node *child );
 
-Node* Node_GetChild( Node *This, char data );
+int
+Node_AddChild(				Node	*This,
+							Node	*child );
 
-int Node_HasChildren( Node *This );
 
-int Node_AddPosition( Node *This, int position );
+Node*
+Node_GetChild(				Node	*This,
+							char data );
 
-int Node_Build( Node *This, char *targetSequence, int depth, int* readLengths );
 
-int* Node_GetPositions( Node *This, char *read, int verbose );
+int
+Node_HasChildren(			Node	*This );
+
+
+int
+Node_AddPosition(			Node	*This,
+							int		position );
+
+
+int
+Node_Build(					Node	*This,
+							char	*targetSequence,
+							int		depth,
+							int		*readLengths );
+
+
+Node*
+Node_GetReadIndexes(		Node	*This,
+							char	*read );
+
+
+void
+Node_PrintIndexes(			Node	*This );
 
 
 #endif
