@@ -16,7 +16,7 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 //	char *s = "tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaaacggtcaggactgtttgat";
 	Sequence *s = New_Sequence( NULL );
 	
-	s->sequence = s->Random( s, 1000000 );
+	s->sequence = s->Random( s, 2000000 );
 	
 	printf( "sequence genereated\n" );
 	
@@ -24,15 +24,15 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 	
 	printf( "Size of a NODE : %ld\n", sizeof( *root ) );
 	
-	int readLengths[] = { 5 };
+	int readLengths[] = { 18, 19, 20 };
 	
-	Node_Build( root, s->sequence, 5, readLengths );
+	Node_Build( root, s->sequence, 20, readLengths );
 	
 	printf("Tree built\n");
 	
 //	Node_GetPositions( root, "ttttt", 1 );
 
-	getchar();
+//	getchar();
 	
 	Node_Free( root );	
 	

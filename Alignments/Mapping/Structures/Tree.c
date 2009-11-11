@@ -160,6 +160,7 @@ int Node_Build( Node *This, char *targetSequence, int depth, int* readLengths )
 	
 	Node *node = This;
 	Node *tmp_node = NULL;
+	Node *chi_node = NULL;
 	
 	for ( i = 0; i < seqLength ; i++ )
 	{
@@ -167,7 +168,20 @@ int Node_Build( Node *This, char *targetSequence, int depth, int* readLengths )
 		
 		for ( cur_depth = 0; cur_depth < depth; cur_depth++ )
 		{
-			if ( Node_GetChild( node, tmp_read[ cur_depth ] ) == NULL )
+			if ( ( chi_node = Node_GetChild( node, tmp_read[ cur_depth ] ) ) != NULL )
+			{
+				for ( k = 0; k < num_readlengths; k++ )
+				{
+					if ( readLengths[ k ] == cur_depth )
+					{
+						Node_AddPosition( node, i );
+						break;
+					}
+				}
+
+				node = chi_node;
+			}				
+			else
 			{
 				tmp_node = New_Node( tmp_read[ cur_depth ] );
 				
@@ -183,19 +197,6 @@ int Node_Build( Node *This, char *targetSequence, int depth, int* readLengths )
 				}
 				
 				node = tmp_node;
-			}
-			else
-			{
-				for ( k = 0; k < num_readlengths; k++ )
-				{
-					if ( readLengths[ k ] == cur_depth )
-					{
-						Node_AddPosition( node, i );
-						break;
-					}
-				}
-				
-				node = Node_GetChild( node, tmp_read[ cur_depth ] );
 			}
 		}
 		
