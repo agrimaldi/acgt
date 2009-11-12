@@ -12,31 +12,22 @@
 #include "Cell.h"
 
 
+static void Cell_Init( Cell *This, int score, int i, int j, Cell *previous );
+
+
+
 Cell* New_Cell( int score, int i, int j, Cell *previous )
 {
 	Cell *This = malloc( sizeof( Cell ) );
 	
-	if( !This )
+	if( This == NULL )
 	{
 		return NULL;
 	}
 	
 	Cell_Init( This, score, i, j, previous );
-	
-	This->Free = Cell_Free;
-	
-	return This;
-}
-
-
-static void Cell_Init( Cell *This, int score, int i, int j, Cell *previous )
-{
-	This->Update = Cell_Update;
-	
-	This->score = score;
-	This->i = i;
-	This->j = j;
-	This->previous = previous;
+		
+	return ( This );
 }
 
 
@@ -49,4 +40,13 @@ void Cell_Free( Cell *This )
 void Cell_Update( Cell *This )
 {
 
+}
+
+
+static void Cell_Init( Cell *This, int score, int i, int j, Cell *previous )
+{	
+	This->score = score;
+	This->i = i;
+	This->j = j;
+	This->previous = previous;
 }

@@ -21,19 +21,20 @@ struct Cell
 	int j;
 	int score;
 	Cell *previous;
-	
-	/* Methods */
-	void ( *Free )( Cell* );
-	void ( *Update )( Cell* );
 };
 
 
-Cell* New_Cell( int score, int i, int j, Cell *previous );
+Cell* New_Cell(		int		score,
+					int		i,
+					int		j,
+					Cell	*previous );
 
-static void Cell_Init( Cell *This, int score, int i, int j, Cell *previous );
 
-void Cell_Free( Cell* );
+void Cell_Free(		Cell* );
 
-void Cell_Update( Cell* );
+
+void Cell_Update(	Cell* );
+
+
 
 #endif

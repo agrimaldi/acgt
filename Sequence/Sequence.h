@@ -20,26 +20,18 @@ struct Sequence
 	char *sequence;
 	Sequence *complement;
 	int dynalloc;
-	
-	/* Methods */
-	void ( *Free ) ( Sequence* );	
-	void ( *Clear ) ( Sequence* );
-	void ( *View ) ( Sequence* );
-	char* ( *Random ) ( Sequence*, int );
 };
 
 
 Sequence* New_Sequence( char *sequence );
 
-static void Sequence_Init( Sequence *This, char *sequence );
 
-void Sequence_Free( Sequence *This );
+void Sequence_Free(		Sequence	*This );
 
-void Sequence_Clear( Sequence *This );
+void Sequence_View(		Sequence	*This );
 
-void Sequence_View( Sequence *This );
-
-char* Sequence_Random( Sequence *This, int size );
+char* Sequence_Random(	Sequence	*This,
+						int			size );
 
 
 #endif

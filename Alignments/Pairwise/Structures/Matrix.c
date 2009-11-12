@@ -14,40 +14,88 @@
 #include "Matrix.h"
 
 
+static void Matrix_Init( Matrix *This, int rows, int cols, int initGapCost );
+
+
+
 Matrix* New_Matrix( int nrows, int ncols, int initGapCost )
 {
 	Matrix *This = malloc( sizeof( Matrix ) );
 	
-	if ( !This )
+	if ( This == NULL )
 	{
-		printf( "Matrix failed to initialize" );
-		return NULL;
+		return ( NULL );
 	}
 	
 	Matrix_Init( This, nrows, ncols, initGapCost );
+		
+	return ( This );
+}
+
+
+
+void Matrix_Free( Matrix *This )
+{
+	if ( This )
+	{
+		Matrix_Clear( This );
+	}
 	
-	This->Free = Matrix_Free;
+	free( This->cells );
+	free( This );
+}
+
+
+void Matrix_Clear( Matrix *This )
+{
+	register int i;
+	register int j;
 	
-	return This;
+	i = This->rows - 1;
+	j = This->cols - 1;
+	
+	for ( i = This->rows - 1; i >= 0; --i )
+	{
+		for ( j = This->cols - 1; j >= 0; --j )
+		{
+			Cell_Free( This->cells[ i ][ j ] );
+		}
+		
+		free( This->cells[ i ] );
+	}
+}
+
+
+void Matrix_View( Matrix *This )
+{
+	register int i;
+	register int j;
+	
+	for ( i = 0; i < This->rows; ++i )
+	{
+		for ( j = 0; j < This->cols; ++j )
+		{
+			printf("(%i, %i) : %i ", This->cells[i][j]->i, This->cells[i][j]->j, This->cells[i][j]->score );
+		}
+		printf("\n");
+	}
 }
 
 
 static void Matrix_Init( Matrix *This, int nrows, int ncols, int initGapCost )
 {
-	int i;
-	int j;
+	register int i;
+	register int j;
 	
-	Cell ***rows = (Cell***) malloc( nrows * sizeof( Cell** ) );
+	Cell ***rows = malloc( nrows * sizeof( Cell** ) );
 	
 	if( rows != NULL )
 	{
-		for ( i = 0; i < nrows; i++ )
+		for ( i = 0; i < nrows; ++i )
 		{
-			rows[ i ] = (Cell**)malloc( ncols * sizeof( Cell* ) );
-			
-			if ( rows[ i ] != NULL )
+			if ( ( rows[ i ] = malloc( ncols * sizeof( Cell* ) ) ) != NULL )
 			{
-				for (j = 0; j < ncols; j++)
+				for ( j = 0; j < ncols; ++j )
 				{
 					if ( i == 0 && j == 0 )
 					{
@@ -65,73 +113,20 @@ static void Matrix_Init( Matrix *This, int nrows, int ncols, int initGapCost )
 					{
 						rows[ i ][ j ] = New_Cell( 0, i, j, NULL );
 					}
-					
 				}
 			}
 			else
 			{
-				printf( "Memory Allocation failed in column initialization : %i", i );
 				return;
 			}
 		}
 	}
 	else
 	{
-		printf( "Memory Allocation failed in row initialization" );
 		return;
 	}
 	
 	This->cells = rows;
 	This->rows = nrows;
 	This->cols = ncols;
-	
-	This->View = Matrix_View;
-}
-
-
-void Matrix_Free( Matrix *This )
-{
-	if ( This )
-	{
-		Matrix_Clear( This );
-	}
-	
-	free( This->cells );
-	free( This );
-}
-
-
-void Matrix_Clear( Matrix *This )
-{
-	int i;
-	int j;
-	
-	i = This->rows - 1;
-	j = This->cols - 1;
-	
-	for ( i = This->rows - 1; i >= 0; i--)
-	{
-		for (j = This->cols - 1; j >= 0; j--)
-		{
-			Cell_Free( This->cells[ i ][ j ] );
-		}
-		
-		free( This->cells[ i ] );
-	}
-}
-
-
-void Matrix_View( Matrix *This )
-{
-	int i;
-	int j;
-	
-	for ( i = 0; i < This->rows; i++ )
-	{
-		for ( j = 0; j < This->cols; j++ )
-		{
-			printf("(%i, %i) : %i ", This->cells[i][j]->i, This->cells[i][j]->j, This->cells[i][j]->score );
-		}
-		printf("\n");
-	}
 }

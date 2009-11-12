@@ -10,8 +10,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 
 #include "Sequence.h"
+
+
+
+static void Sequence_Init( Sequence *This, char *sequence );
+
 
 
 Sequence* New_Sequence( char *sequence )
@@ -20,25 +26,14 @@ Sequence* New_Sequence( char *sequence )
 	
 	if( This == NULL )
 	{
-		return NULL;
+		return ( NULL );
 	}
 	
 	Sequence_Init( This, sequence );
 	
-	This->Free = Sequence_Free;
-	
-	return This;
+	return ( This );
 }
 
-
-static void Sequence_Init( Sequence *This, char *sequence )
-{
-	This->sequence = sequence;
-	This->complement = NULL;
-	
-	This->View = Sequence_View;
-	This->Random = Sequence_Random;
-}
 
 
 void Sequence_Free( Sequence *This )
@@ -52,11 +47,6 @@ void Sequence_Free( Sequence *This )
 }
 
 
-void Sequence_Clear( Sequence *This )
-{
-	
-}
-
 
 void Sequence_View( Sequence *This )
 {
@@ -64,9 +54,10 @@ void Sequence_View( Sequence *This )
 }
 
 
+
 char* Sequence_Random( Sequence *This, int size )
 {
-	char *sequence = (char*) malloc( ( size + 1 ) * sizeof( char ) );
+	char *sequence = malloc( ( size + 1 ) * sizeof( char ) );
 	
 	register int i;
 	register int random;
@@ -97,7 +88,15 @@ char* Sequence_Random( Sequence *This, int size )
 		sequence[ size ] = '\0';
 	}
 	
-	This->dynalloc = 1;
+	This->dynalloc = true;
 	
-	return sequence;
+	return ( sequence );
+}
+
+
+
+static void Sequence_Init( Sequence *This, char *sequence )
+{
+	This->sequence = sequence;
+	This->complement = NULL;
 }
