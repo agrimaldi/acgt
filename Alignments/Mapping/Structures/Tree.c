@@ -17,13 +17,12 @@
 
 
 static int
-Node_Init(			Node	*This,
-					char	data );
+Node_Init( Node *This, char data );
 
 
 
-Node*
-New_Node(			char	data )
+Node* 
+New_Node( char data )
 {
 	Node *This = malloc( sizeof( Node ) );
 	
@@ -40,7 +39,7 @@ New_Node(			char	data )
 
 
 void
-Node_Free(			Node	*This )
+Node_Free( Node *This )
 {
 	int i;
 	
@@ -61,8 +60,7 @@ Node_Free(			Node	*This )
 
 
 int
-Node_AddChild(		Node	*This,
-					Node	*child )
+Node_AddChild( Node *This, Node *child )
 {
 	This->children = realloc( This->children, ( This->nchild + 1 ) * sizeof( Node* ) );
 
@@ -79,8 +77,7 @@ Node_AddChild(		Node	*This,
 
 
 Node*
-Node_GetChild(		Node	*This,
-					char	data )
+Node_GetChild( Node *This, char data )
 {
 	register int i;
 	
@@ -98,7 +95,7 @@ Node_GetChild(		Node	*This,
 
 
 int
-Node_HasChildren(	Node	*This )
+Node_HasChildren( Node *This )
 {	
 	return ( ( This->nchild == 0 ) ? false : true );
 }
@@ -106,8 +103,7 @@ Node_HasChildren(	Node	*This )
 
 
 int
-Node_AddPosition(	Node	*This,
-					int		position )
+Node_AddPosition( Node *This, int position )
 {
 	This->positions = realloc( This->positions, ( This->npos + 1 ) * sizeof( int ) );
 	
@@ -124,10 +120,7 @@ Node_AddPosition(	Node	*This,
 
 
 int
-Node_Build(			Node	*This,
-					char	*targetSequence,
-					int		depth,
-					int		*readLengths )
+Node_Build( Node *This, char *targetSequence, int depth, int *readLengths )
 {
 	register int i;
 	register int cur_depth;
@@ -197,11 +190,19 @@ Node_Build(			Node	*This,
 
 
 
-Node*
-Node_GetReadIndexes(	Node	*This,
-						char	*read )
+int
+Node_GCDBuild( Node *This, char *targetSequence, int depth, int *readLengths )
 {
-	register int i;
+	
+	return ( 0 );
+}
+
+
+
+Node*
+Node_GetReadIndexes( Node *This, char *read )
+{
+	register unsigned int i;
 	
 	Node *tmp_node = This;
 	
@@ -219,7 +220,7 @@ Node_GetReadIndexes(	Node	*This,
 
 
 void
-Node_PrintIndexes(		Node	*This )
+Node_PrintIndexes( Node *This )
 {
 	register int i;
 	
@@ -232,8 +233,7 @@ Node_PrintIndexes(		Node	*This )
 
 
 static int
-Node_Init(				Node	*This,
-						char	data )
+Node_Init( Node *This, char data )
 {
 	int *positions = malloc( sizeof( int ) );
 	
