@@ -12,6 +12,8 @@
 #include <string.h>
 #include <stdbool.h>
 
+#include <dispatch/dispatch.h>
+
 #include "Utils.h"
 #include "Tree.h"
 
