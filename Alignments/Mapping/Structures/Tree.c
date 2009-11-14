@@ -129,7 +129,7 @@ Node_Build( Node *This, char *targetSequence, int depth, int *readLengths )
 	int num_readlengths;
 	char *tmp_read;
 	
-	if ( ( tmp_read = malloc( ( ++depth ) * sizeof( char ) ) ) == NULL )
+	if ( ( tmp_read = malloc( ( depth + 1 ) * sizeof( char ) ) ) == NULL )
 	{
 		return ( MER_ALLOC_ERROR );
 	}
@@ -137,24 +137,25 @@ Node_Build( Node *This, char *targetSequence, int depth, int *readLengths )
 	num_readlengths = intArrayLength( readLengths );
 	
 	seqLength = strlen( targetSequence ) - depth + 1; 
-	
+		
 	Node *node = This;
 	Node *tmp_node = NULL;
 	Node *chi_node = NULL;
 	
 	for ( i = 0; i < seqLength ; ++i )
 	{
-		strncpy( tmp_read, targetSequence + i, depth);
+		strncpy( tmp_read, targetSequence + i, depth );
+		tmp_read[ depth ] = '\0';
 		
-		for ( cur_depth = 0; cur_depth < depth; ++cur_depth )
+		for ( cur_depth = 0; cur_depth < depth ; ++cur_depth )
 		{
 			if ( ( chi_node = Node_GetChild( node, tmp_read[ cur_depth ] ) ) != NULL )
 			{
 				for ( k = 0; k < num_readlengths; ++k )
 				{
-					if ( readLengths[ k ] == cur_depth )
+					if ( readLengths[ k ] - 1 == cur_depth )
 					{
-						Node_AddPosition( node, i );
+						Node_AddPosition( chi_node, i );
 						break;
 					}
 				}
@@ -165,34 +166,25 @@ Node_Build( Node *This, char *targetSequence, int depth, int *readLengths )
 			{
 				tmp_node = New_Node( tmp_read[ cur_depth ] );
 				
-				Node_AddChild( node, tmp_node );
-				
 				for ( k = 0; k < num_readlengths; ++k )
 				{
-					if ( readLengths[ k ] == cur_depth )
+					if ( readLengths[ k ] - 1 == cur_depth )
 					{
-						Node_AddPosition( node, i );
+						Node_AddPosition( tmp_node, i );
 						break;
 					}
 				}
 				
+				Node_AddChild( node, tmp_node );
+				
 				node = tmp_node;
-			}
+			}			
 		}
 		
 		node = This;
 	}
 	
 	free( tmp_read );
-	
-	return ( 0 );
-}
-
-
-
-int
-Node_GCDBuild( Node *This, char *targetSequence, int depth, int *readLengths )
-{
 	
 	return ( 0 );
 }
