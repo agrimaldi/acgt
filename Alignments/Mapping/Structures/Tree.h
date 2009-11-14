@@ -13,7 +13,7 @@
 #define NODE_INIT_ERROR -1
 #define CHILDREN_REALLOC_ERROR 1
 #define POSITIONS_REALLOC_ERROR 2
-#define MER_ALLOC_ERROR 3
+#define READ_ALLOC_ERROR 3
 
 
 typedef struct Node Node;

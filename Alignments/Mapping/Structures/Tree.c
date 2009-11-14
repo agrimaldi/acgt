@@ -124,16 +124,123 @@ Node_AddPosition( Node *This, int position )
 int
 Node_Build( Node *This, char *targetSequence, int depth, int *readLengths )
 {
-	register int i;
-	register int cur_depth;
-	register int k;
 	register int seqLength;
-	int num_readlengths;
-	char *tmp_read;
+	
+	dispatch_queue_t aQueue;
+	dispatch_queue_t cQueue;
+	dispatch_queue_t gQueue;
+	dispatch_queue_t tQueue;
+	
+	dispatch_block_t blockA;
+	dispatch_block_t blockC;
+	dispatch_block_t blockG;
+	dispatch_block_t blockT;
+
+	seqLength = strlen( targetSequence ) - depth + 1;
+	
+	aQueue = dispatch_queue_create("com.TreeMap.Build.a", NULL);
+	cQueue = dispatch_queue_create("com.TreeMap.Build.c", NULL);
+	gQueue = dispatch_queue_create("com.TreeMap.Build.g", NULL);
+	tQueue = dispatch_queue_create("com.TreeMap.Build.t", NULL);
+	
+	blockA = ^
+	{
+		register int i;
+		register int cur_depth;
+		register int k;
+		register int t_depth;
+		int num_readlengths;
+		char *tmp_read;
+		
+		t_depth = ++depth;
+		
+		if ( ( tmp_read = malloc( ( t_depth ) * sizeof( char ) ) ) == NULL )
+			return ( READ_ALLOC_ERROR ); 
+
+		num_readlengths = intArrayLength( readLengths );
+		
+		Node *node = This;
+		Node *tmp_node = NULL;
+		Node *chi_node = NULL;
+		
+		for ( i = 0; i < seqLength ; ++i )
+		{
+			if ( targetSequence[ i ] == 'a' )
+			{
+				strncpy( tmp_read, targetSequence + i, depth);
+				
+				for ( cur_depth = 0; cur_depth < depth; ++cur_depth )
+				{
+					if ( ( chi_node = Node_GetChild( node, tmp_read[ cur_depth ] ) ) != NULL )
+					{
+						for ( k = 0; k < num_readlengths; ++k )
+						{
+							if ( readLengths[ k ] == cur_depth )
+							{
+								Node_AddPosition( node, i );
+								break;
+							}
+						}
+						
+						node = chi_node;
+					}				
+					else
+					{
+						tmp_node = New_Node( tmp_read[ cur_depth ] );
+						
+						Node_AddChild( node, tmp_node );
+						
+						for ( k = 0; k < num_readlengths; ++k )
+						{
+							if ( readLengths[ k ] == cur_depth )
+							{
+								Node_AddPosition( node, i );
+								break;
+							}
+						}
+						
+						node = tmp_node;
+					}
+				}
+				
+				node = This;
+			}
+			
+			free( tmp_read );
+	};
+	
+	blockC = ^
+	{
+		register int i;
+		register int cur_depth;
+		register int k;
+		int num_readlengths;
+		char *tmp_read;
+	};
+	
+	blockG = ^
+	{
+		register int i;
+		register int cur_depth;
+		register int k;
+		int num_readlengths;
+		char *tmp_read;
+
+	};
+	
+	blockT = ^
+	{
+		register int i;
+		register int cur_depth;
+		register int k;
+		int num_readlengths;
+		char *tmp_read;
+	};
+	
 	
 	if ( ( tmp_read = malloc( ( ++depth ) * sizeof( char ) ) ) == NULL )
 	{
-		return ( MER_ALLOC_ERROR );
+		return ( READ_ALLOC_ERROR );
 	}
 	
 	num_readlengths = intArrayLength( readLengths );
@@ -186,15 +293,6 @@ Node_Build( Node *This, char *targetSequence, int depth, int *readLengths )
 	}
 	
 	free( tmp_read );
-	
-	return ( 0 );
-}
-
-
-
-int
-Node_GCDBuild( Node *This, char *targetSequence, int depth, int *readLengths )
-{
 	
 	return ( 0 );
 }
