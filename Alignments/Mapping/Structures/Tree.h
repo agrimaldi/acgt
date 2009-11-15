@@ -37,6 +37,10 @@ void
 Node_Free(					Node	*This );
 
 
+void
+Node_nFree(					Node	*This );
+
+
 int
 Node_AddChild(				Node	*This,
 							Node	*child );

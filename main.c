@@ -79,7 +79,7 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 
 //	getchar();
 	
-	Node_Free( root );	
+	Node_nFree( root );	
 
 	if (task == 2)
 	{

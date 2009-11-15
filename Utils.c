@@ -16,3 +16,19 @@ intArrayLength(		int		*array )
 {
 	return ( sizeof( array ) / sizeof( int ) );
 }
+
+
+void
+modifValues(		int		*array,
+					int		value )
+{
+	register unsigned int l_array;
+	register unsigned int i;
+	
+	l_array = intArrayLength( array );
+	
+	for ( i = 0; i < l_array; ++i )
+	{
+		array[ i ] += value;
+	}
+}

@@ -8,4 +8,9 @@
  */
 
 int
-intArrayLength(		int					*array );
+intArrayLength(		int		*array );
+
+
+void
+modifValues(		int		*array,
+					int		value );
