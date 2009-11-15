@@ -45,37 +45,33 @@ Node_Free( Node *This )
 {
 	dispatch_group_t group = dispatch_group_create();
 	
-	dispatch_queue_t aQueue = dispatch_queue_create("com.TreeMap.Free.a", NULL);
-//	dispatch_queue_t cQueue = dispatch_queue_create("com.TreeMap.Free.c", NULL);
-	dispatch_queue_t gQueue = dispatch_queue_create("com.TreeMap.Free.g", NULL);
-//	dispatch_queue_t tQueue = dispatch_queue_create("com.TreeMap.Free.t", NULL);
+	dispatch_queue_t acQueue = dispatch_queue_create("com.TreeMap.Free.a", NULL);
+	dispatch_queue_t gtQueue = dispatch_queue_create("com.TreeMap.Free.g", NULL);
 	
 	dispatch_block_t blockA = ^
 	{
 		Node_nFree( Node_GetChild( This, 'a' ) );
-		Node_nFree( Node_GetChild( This, 'c' ) );
 	};
 	
-//	dispatch_block_t blockC = ^
-//	{
-//		Node_nFree( Node_GetChild( This, 'c' ) );
-//	};
+	dispatch_block_t blockC = ^
+	{
+		Node_nFree( Node_GetChild( This, 'c' ) );
+	};
 	
 	dispatch_block_t blockG = ^
 	{
 		Node_nFree( Node_GetChild( This, 'g' ) );
+	};
+	
+	dispatch_block_t blockT = ^
+	{
 		Node_nFree( Node_GetChild( This, 't' ) );
 	};
-//	
-//	dispatch_block_t blockT = ^
-//	{
-//		Node_nFree( Node_GetChild( This, 't' ) );
-//	};
 	
-	dispatch_group_async(group, aQueue, blockA);
-//	dispatch_group_async(group, cQueue, blockC);
-	dispatch_group_async(group, gQueue, blockG);
-//	dispatch_group_async(group, tQueue, blockT);
+	dispatch_group_async(group, acQueue, blockA);
+	dispatch_group_async(group, acQueue, blockC);
+	dispatch_group_async(group, gtQueue, blockG);
+	dispatch_group_async(group, gtQueue, blockT);
 	
 	dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
 	
@@ -99,10 +95,11 @@ Node_nFree( Node *This )
 		{
 			Node_nFree( This->children[ i ] );
 		}	
+	
+		free( This->positions );
+		free( This->children );	
 	}
 	
-	free( This->positions );
-	free( This->children );	
 	
 	free( This );
 }
@@ -184,9 +181,9 @@ Node_Build( Node *This, char *targetSequence, int depth, int *readLengths )
 	dispatch_group_t group = dispatch_group_create();
 	
 	dispatch_queue_t aQueue = dispatch_queue_create("com.TreeMap.Build.a", NULL);
-	dispatch_queue_t cQueue = dispatch_queue_create("com.TreeMap.Build.c", NULL);
+//	dispatch_queue_t cQueue = dispatch_queue_create("com.TreeMap.Build.c", NULL);
 	dispatch_queue_t gQueue = dispatch_queue_create("com.TreeMap.Build.g", NULL);
-	dispatch_queue_t tQueue = dispatch_queue_create("com.TreeMap.Build.t", NULL);
+//	dispatch_queue_t tQueue = dispatch_queue_create("com.TreeMap.Build.t", NULL);
 	
 	dispatch_block_t blockA = ^
 	{
