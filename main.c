@@ -47,11 +47,14 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 	{
 		ss = New_Sequence( NULL );
 		
-		ss->sequence = Sequence_Random( ss, 1000000 );
+		ss->sequence = Sequence_Random( ss, 1500000 );
 		
 		s = ss->sequence;
 		
 		printf( "sequence genereated\n" );
+		
+		int tmp_readL[] = { 18, 19, 20 };
+		readLengths = tmp_readL;
 		
 		depth = 20;
 	}
@@ -70,6 +73,8 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 	if (task == 1)
 	{
 		Node_PrintIndexes( Node_GetReadIndexes( root, "ttt" ) );
+		printf("\n");
+		Node_PrintIndexes( Node_GetReadIndexes( root, "ttga" ) );
 	}
 
 //	getchar();
