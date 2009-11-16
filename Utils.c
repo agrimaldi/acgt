@@ -12,15 +12,15 @@
 
 
 int
-intArrayLength(		int		*array )
+intArrayLength(		unsigned int	*array )
 {
 	return ( sizeof( array ) / sizeof( int ) );
 }
 
 
 void
-modifValues(		int		*array,
-					int		value )
+modifValues(		unsigned int	*array,
+					unsigned int	value )
 {
 	register unsigned int l_array;
 	register unsigned int i;

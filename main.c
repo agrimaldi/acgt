@@ -15,9 +15,9 @@ int main (int argc, const char * argv[]) {
 	clock_t start, end;
 	double elapsed;
 	
-	int task;
-	int depth;
-	int *readLengths;
+	unsigned int task;
+	unsigned int depth;
+	unsigned int *readLengths;
 	char *s;
 	Sequence *ss;
 	
@@ -50,7 +50,7 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 	{
 		s = "tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaaacggtcaggactgtttgat";
 		
-		int tmp_readL[] = { 3, 4 };
+		unsigned int tmp_readL[] = { 3, 4 };
 		readLengths = tmp_readL;
 		
 		depth = 4;
@@ -67,7 +67,7 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 		
 		printf( "sequence genereated\n" );
 		
-		int tmp_readL[] = { 18, 19, 20 };
+		unsigned int tmp_readL[] = { 18, 19, 20 };
 		readLengths = tmp_readL;
 		
 		depth = 20;
@@ -108,7 +108,7 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 		elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
 		printf( "TIME : %f", elapsed );
 	}
-	printf("%i\n", task);
+	
 	if (task == 2)
 	{
 		getchar();

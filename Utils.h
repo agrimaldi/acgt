@@ -8,9 +8,9 @@
  */
 
 int
-intArrayLength(		int		*array );
+intArrayLength(		unsigned int	*array );
 
 
 void
-modifValues(		int		*array,
-					int		value );
+modifValues(		unsigned int	*array,
+					unsigned int	value );

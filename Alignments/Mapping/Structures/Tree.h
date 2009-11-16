@@ -22,54 +22,54 @@ typedef struct Node Node;
 struct Node
 {
 	Node **children;
-	int *positions;
-	int nchild;
-	int npos;
+	unsigned int *positions;
+	unsigned int nchild;
+	unsigned int npos;
 	char data;
 };
 
 
 Node*
-New_Node(					char	data );
+New_Node(					char			data );
 
 
 void
-Node_Free(					Node	*This );
+Node_Free(					Node			*This );
 
 
 void
-Node_nFree(					Node	*This );
+Node_nFree(					Node			*This );
 
 
 int
-Node_AddChild(				Node	*This,
-							Node	*child );
+Node_AddChild(				Node			*This,
+							Node			*child );
 
 
 Node*
-Node_GetChild(				Node	*This,
-							char data );
+Node_GetChild(				Node			*This,
+							char			data );
 
 
 int
-Node_HasChildren(			Node	*This );
+Node_HasChildren(			Node			*This );
 
 
 int
-Node_AddPosition(			Node	*This,
-							int		position );
+Node_AddPosition(			Node			*This,
+							unsigned int	position );
 
 
 int
-Node_Build(					Node	*This,
-							char	*targetSequence,
-							int		depth,
-							int		*readLengths );
+Node_Build(					Node			*This,
+							char			*targetSequence,
+							unsigned int	depth,
+							unsigned int	*readLengths );
 
 
 Node*
-Node_GetReadIndexes(		Node	*This,
-							char	*read );
+Node_GetReadIndexes(		Node			*This,
+							char			*read );
 
 
 void

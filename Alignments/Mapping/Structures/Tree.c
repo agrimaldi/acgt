@@ -87,7 +87,7 @@ Node_Free( Node *This )
 void
 Node_nFree( Node *This )
 {
-	register int i;
+	register unsigned int i;
 	
 	if ( This )
 	{
@@ -150,7 +150,7 @@ Node_HasChildren( Node *This )
 
 
 int
-Node_AddPosition( Node *This, int position )
+Node_AddPosition( Node *This, unsigned int position )
 {
 	This->positions = realloc( This->positions, ( This->npos + 1 ) * sizeof( int ) );
 	
@@ -167,10 +167,10 @@ Node_AddPosition( Node *This, int position )
 
 
 int
-Node_Build( Node *This, char *targetSequence, int depth, int *readLengths )
+Node_Build( Node *This, char *targetSequence, unsigned int depth, unsigned int *readLengths )
 {
-	int seqLength;
-	int num_readlengths;
+	unsigned int seqLength;
+	unsigned int num_readlengths;
 	
 	num_readlengths = intArrayLength( readLengths );
 
@@ -187,9 +187,9 @@ Node_Build( Node *This, char *targetSequence, int depth, int *readLengths )
 	
 	dispatch_block_t blockA = ^
 	{
-		register int i;
-		register int cur_depth;
-		register int k;
+		register unsigned int i;
+		register unsigned int cur_depth;
+		register unsigned int k;
 		char *tmp_read;
 		
 		if ( ( tmp_read = malloc( ( depth + 1 ) * sizeof( char ) ) ) == NULL )
@@ -312,9 +312,9 @@ Node_Build( Node *This, char *targetSequence, int depth, int *readLengths )
 	
 	dispatch_block_t blockG = ^
 	{
-		register int i;
-		register int cur_depth;
-		register int k;
+		register unsigned int i;
+		register unsigned int cur_depth;
+		register unsigned int k;
 		char *tmp_read;
 
 		if ( ( tmp_read = malloc( ( depth + 1 ) * sizeof( char ) ) ) == NULL )
@@ -476,7 +476,7 @@ Node_GetReadIndexes( Node *This, char *read )
 void
 Node_PrintIndexes( Node *This )
 {
-	register int i;
+	register unsigned int i;
 	
 	for ( i = 0; i < This->npos; ++i )
 	{
@@ -489,7 +489,7 @@ Node_PrintIndexes( Node *This )
 static int
 Node_Init( Node *This, char data )
 {
-	int *positions = malloc( sizeof( int ) );
+	unsigned int *positions = malloc( sizeof( int ) );
 	
 	Node **children = malloc( sizeof( Node* ) );
 	
