@@ -210,12 +210,15 @@ Node_Build( Node *This, char *targetSequence, unsigned int depth, unsigned int *
 				{
 					if ( ( chi_node = Node_GetChild( node, tmp_read[ cur_depth ] ) ) != NULL )
 					{
-						for ( k = num_readlengths; k--; )
+						if ( readLengths[ 0 ] <= cur_depth )
 						{
-							if ( readLengths[ k ] == cur_depth )
+							for ( k = num_readlengths; k--; )
 							{
-								Node_AddPosition( chi_node, i );
-								break;
+								if ( readLengths[ k ] == cur_depth )
+								{
+									Node_AddPosition( chi_node, i );
+									break;
+								}
 							}
 						}
 						
@@ -225,12 +228,15 @@ Node_Build( Node *This, char *targetSequence, unsigned int depth, unsigned int *
 					{
 						tmp_node = New_Node( tmp_read[ cur_depth ] );
 						
-						for ( k = num_readlengths; k--; )
+						if ( readLengths[ 0 ] <= cur_depth )
 						{
-							if ( readLengths[ k ] == cur_depth )
+							for ( k = num_readlengths; k--; )
 							{
-								Node_AddPosition( tmp_node, i );
-								break;
+								if ( readLengths[ k ] == cur_depth )
+								{
+									Node_AddPosition( tmp_node, i );
+									break;
+								}
 							}
 						}
 						
@@ -335,12 +341,15 @@ Node_Build( Node *This, char *targetSequence, unsigned int depth, unsigned int *
 				{
 					if ( ( chi_node = Node_GetChild( node, tmp_read[ cur_depth ] ) ) != NULL )
 					{
-						for ( k = num_readlengths; k--; )
+						if ( readLengths[ 0 ] <= cur_depth )
 						{
-							if ( readLengths[ k ] == cur_depth )
+							for ( k = num_readlengths; k--; )
 							{
-								Node_AddPosition( chi_node, i );
-								break;
+								if ( readLengths[ k ] == cur_depth )
+								{
+									Node_AddPosition( chi_node, i );
+									break;
+								}
 							}
 						}
 						
@@ -350,12 +359,15 @@ Node_Build( Node *This, char *targetSequence, unsigned int depth, unsigned int *
 					{
 						tmp_node = New_Node( tmp_read[ cur_depth ] );
 						
-						for ( k = num_readlengths; k--; )
+						if ( readLengths[ 0 ] <= cur_depth )
 						{
-							if ( readLengths[ k ] == cur_depth )
+							for ( k = num_readlengths; k--; )
 							{
-								Node_AddPosition( tmp_node, i );
-								break;
+								if ( readLengths[ k ] == cur_depth )
+								{
+									Node_AddPosition( tmp_node, i );
+									break;
+								}
 							}
 						}
 						
