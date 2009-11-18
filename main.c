@@ -15,9 +15,9 @@ int main (int argc, const char * argv[]) {
 	clock_t start, end;
 	double elapsed;
 	
-	int task;
-	int depth;
-	int *readLengths;
+	unsigned int task;
+	unsigned int depth;
+	unsigned int *readLengths;
 	char *s;
 	Sequence *ss;
 	
@@ -50,7 +50,7 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 	{
 		s = "tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaaacggtcaggactgtttgat";
 		
-		int tmp_readL[] = { 3, 4 };
+		unsigned int tmp_readL[] = { 3, 4 };
 		readLengths = tmp_readL;
 		
 		depth = 4;
@@ -61,16 +61,16 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 	{
 		ss = New_Sequence( NULL );
 		
-		ss->sequence = Sequence_Random( ss, 1000000 );
+		ss->sequence = Sequence_Random( ss, 1500000 );
 		
 		s = ss->sequence;
 		
 		printf( "sequence genereated\n" );
 		
-		int tmp_readL[] = { 18, 19, 20 };
+		unsigned int tmp_readL[] = { 35 };
 		readLengths = tmp_readL;
 		
-		depth = 20;
+		depth = 35;
 	}
 	
 	
@@ -81,13 +81,11 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 	
 	printf( "Size of a NODE : %ld\n", sizeof( *root ) );
 	
-	if (task == 3)
-		start = clock();
+	start = clock();
 	
 	Node_Build( root, s, depth, readLengths );
 	
-	if (task == 3)
-		end = clock();
+	end = clock();
 	
 	printf("Tree built\n");
 	
@@ -101,14 +99,19 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 		Node_PrintIndexes( Node_GetReadIndexes( root, "ttt" ) );
 		printf("\n");
 		Node_PrintIndexes( Node_GetReadIndexes( root, "ttga" ) );
+		printf("\n");		
+		Node_PrintIndexes( Node_GetReadIndexes( root, "atg" ) );
+		printf("\n");
+		Node_PrintIndexes( Node_GetReadIndexes( root, "atgg" ) );
+		printf("\n");
+		Node_PrintIndexes( Node_GetReadIndexes( root, "cgt" ) );
+		printf("\n");
 	}
 	
-	if (task == 3)
-	{
-		elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
-		printf( "TIME : %f", elapsed );
-	}
-	printf("%i\n", task);
+	elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
+	printf( "TIME : %f\n", elapsed );
+
+	
 	if (task == 2)
 	{
 		getchar();
