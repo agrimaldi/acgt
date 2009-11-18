@@ -201,7 +201,7 @@ Node_Build( Node *This, char *targetSequence, unsigned int depth, unsigned int *
 		
 		for ( i = 0; i < seqLength ; ++i )
 		{
-			if ( targetSequence[ i ] == 'a' || targetSequence[ i ] == 'a' )
+			if ( targetSequence[ i ] == 'a' || targetSequence[ i ] == 'c' )
 			{
 				strncpy( tmp_read, targetSequence + i, depth );
 				tmp_read[ depth ] = '\0';
