@@ -61,7 +61,7 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 	{
 		ss = New_Sequence( NULL );
 		
-		ss->sequence = Sequence_Random( ss, 2000000 );
+		ss->sequence = Sequence_Random( ss, 1500000 );
 		
 		s = ss->sequence;
 		
@@ -99,10 +99,17 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 		Node_PrintIndexes( Node_GetReadIndexes( root, "ttt" ) );
 		printf("\n");
 		Node_PrintIndexes( Node_GetReadIndexes( root, "ttga" ) );
+		printf("\n");		
+		Node_PrintIndexes( Node_GetReadIndexes( root, "atg" ) );
+		printf("\n");
+		Node_PrintIndexes( Node_GetReadIndexes( root, "atgg" ) );
+		printf("\n");
+		Node_PrintIndexes( Node_GetReadIndexes( root, "cgt" ) );
+		printf("\n");
 	}
 	
 	elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
-	printf( "TIME : %f", elapsed );
+	printf( "TIME : %f\n", elapsed );
 
 	
 	if (task == 2)
