@@ -61,16 +61,16 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 	{
 		ss = New_Sequence( NULL );
 		
-		ss->sequence = Sequence_Random( ss, 1000000 );
+		ss->sequence = Sequence_Random( ss, 2000000 );
 		
 		s = ss->sequence;
 		
 		printf( "sequence genereated\n" );
 		
-		unsigned int tmp_readL[] = { 18, 19, 20 };
+		unsigned int tmp_readL[] = { 35 };
 		readLengths = tmp_readL;
 		
-		depth = 20;
+		depth = 35;
 	}
 	
 	
@@ -81,13 +81,11 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 	
 	printf( "Size of a NODE : %ld\n", sizeof( *root ) );
 	
-	if (task == 3)
-		start = clock();
+	start = clock();
 	
 	Node_Build( root, s, depth, readLengths );
 	
-	if (task == 3)
-		end = clock();
+	end = clock();
 	
 	printf("Tree built\n");
 	
@@ -103,11 +101,9 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 		Node_PrintIndexes( Node_GetReadIndexes( root, "ttga" ) );
 	}
 	
-	if (task == 3)
-	{
-		elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
-		printf( "TIME : %f", elapsed );
-	}
+	elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
+	printf( "TIME : %f", elapsed );
+
 	
 	if (task == 2)
 	{
