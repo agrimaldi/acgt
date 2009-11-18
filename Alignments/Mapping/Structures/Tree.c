@@ -169,6 +169,8 @@ Node_AddPosition( Node *This, unsigned int position )
 int
 Node_Build( Node *This, char *targetSequence, unsigned int depth, unsigned int *readLengths )
 {
+	// Workers baseed tree building.
+	
 	unsigned int seqLength;
 	unsigned int num_readlengths;
 	
