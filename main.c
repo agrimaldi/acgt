@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <sys/time.h>
 
 #include "Utils.h"
 #include "Sequence.h"
@@ -12,7 +13,7 @@
 
 int main (int argc, const char * argv[]) {
 	
-	clock_t start, end;
+	struct timeval start, end;
 	double elapsed;
 	
 	unsigned int task;
@@ -73,7 +74,10 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 		depth = 35;
 	}
 	
-	
+	if (task == 2)
+	{
+		getchar();
+	}
 	
 	
 	
@@ -81,11 +85,11 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 	
 	printf( "Size of a NODE : %ld\n", sizeof( *root ) );
 	
-	start = clock();
+	gettimeofday( &start, NULL );
 	
 	Node_Build( root, s, depth, readLengths );
 	
-	end = clock();
+	gettimeofday( &end, NULL );
 	
 	printf("Tree built\n");
 	
@@ -108,8 +112,8 @@ tggatggagaggtaaatgcctacgcgatttgcgtgatagagcggatgcgcgttgagtttgtcgttaaggatgggattaaa
 		printf("\n");
 	}
 	
-	elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
-	printf( "TIME : %f\n", elapsed );
+	printf("%f\n", ((end.tv_sec * 1000000 + end.tv_usec)
+					 - (start.tv_sec * 1000000 + start.tv_usec))/1000000.0);
 
 	
 	if (task == 2)
