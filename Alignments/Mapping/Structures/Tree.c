@@ -14,7 +14,7 @@
 
 #include <dispatch/dispatch.h>
 
-#include "Utils.h"
+#include "../../../Utils.h"
 #include "Tree.h"
 
 
@@ -43,39 +43,47 @@ New_Node( char data )
 void
 Node_Free( Node *This )
 {
-	dispatch_group_t group = dispatch_group_create();
+	dispatch_group_t fGroup;
 	
-	dispatch_queue_t acQueue = dispatch_queue_create("com.TreeMap.Free.a", NULL);
-	dispatch_queue_t gtQueue = dispatch_queue_create("com.TreeMap.Free.g", NULL);
+	dispatch_queue_t fQueue;
 	
-	dispatch_block_t blockA = ^
+	dispatch_block_t blockA;
+	dispatch_block_t blockC;
+	dispatch_block_t blockG;
+	dispatch_block_t blockT;
+	
+	fGroup = dispatch_group_create();
+	
+	fQueue = dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH ,0 );
+	
+	blockA = ^
 	{
 		Node_nFree( Node_GetChild( This, 'a' ) );
 	};
 	
-	dispatch_block_t blockC = ^
+	blockC = ^
 	{
 		Node_nFree( Node_GetChild( This, 'c' ) );
 	};
 	
-	dispatch_block_t blockG = ^
+	blockG = ^
 	{
 		Node_nFree( Node_GetChild( This, 'g' ) );
 	};
 	
-	dispatch_block_t blockT = ^
+	blockT = ^
 	{
 		Node_nFree( Node_GetChild( This, 't' ) );
 	};
 	
-	dispatch_group_async(group, acQueue, blockA);
-	dispatch_group_async(group, acQueue, blockC);
-	dispatch_group_async(group, gtQueue, blockG);
-	dispatch_group_async(group, gtQueue, blockT);
+	dispatch_group_async( fGroup, fQueue, blockA );
+	dispatch_group_async( fGroup, fQueue, blockC );
+	dispatch_group_async( fGroup, fQueue, blockG );
+	dispatch_group_async( fGroup, fQueue, blockT );
 	
-	dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+	dispatch_group_wait( fGroup, DISPATCH_TIME_FOREVER );
 	
-	dispatch_release(group);	
+	dispatch_release( fGroup );	
 	
 	free( This->positions );
 	free( This->children );	
@@ -126,16 +134,19 @@ Node_AddChild( Node *This, Node *child )
 Node*
 Node_GetChild( Node *This, char data )
 {
-	register unsigned int i;
-	
-	for ( i = 0; i < This->nchild; ++i )
+	if ( Node_HasChildren( This ) )
 	{
-		if ( This->children[ i ]->data == data )
+		register unsigned int i;
+		
+		for ( i = 0; i < This->nchild; ++i )
 		{
-			return ( This->children[ i ] );
-		}
+			if ( This->children[ i ]->data == data )
+			{
+				return ( This->children[ i ] );
+			}
+		}		
 	}
-	
+		
 	return ( NULL );
 }
 
@@ -172,18 +183,19 @@ Node_Build( Node *This, char *targetSequence, unsigned int depth, unsigned int *
 	unsigned int seqLength;
 	unsigned int num_readlengths;
 	
+	dispatch_group_t bGroup;
+	
+	dispatch_queue_t bQueue;
+	
 	num_readlengths = intArrayLength( readLengths );
 
-	seqLength = strlen( targetSequence ) - depth + 1;
-	
 	modifValues( readLengths, -1 );
+
+	seqLength = strlen( targetSequence ) - depth + 1;
+		
+	bGroup = dispatch_group_create();
 	
-	dispatch_group_t group = dispatch_group_create();
-	
-	dispatch_queue_t aQueue = dispatch_queue_create("com.TreeMap.Build.a", NULL);
-//	dispatch_queue_t cQueue = dispatch_queue_create("com.TreeMap.Build.c", NULL);
-	dispatch_queue_t gQueue = dispatch_queue_create("com.TreeMap.Build.g", NULL);
-//	dispatch_queue_t tQueue = dispatch_queue_create("com.TreeMap.Build.t", NULL);
+	bQueue = dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0 );
 	
 	dispatch_block_t blockA = ^
 	{
@@ -201,7 +213,7 @@ Node_Build( Node *This, char *targetSequence, unsigned int depth, unsigned int *
 		
 		for ( i = 0; i < seqLength ; ++i )
 		{
-			if ( targetSequence[ i ] == 'a' || targetSequence[ i ] == 'c' )
+			if ( targetSequence[ i ] == 'a' )
 			{
 				strncpy( tmp_read, targetSequence + i, depth );
 				tmp_read[ depth ] = '\0';
@@ -253,68 +265,68 @@ Node_Build( Node *This, char *targetSequence, unsigned int depth, unsigned int *
 		free( tmp_read );
 	};
 	
-//	dispatch_block_t blockC = ^
-//	{
-//		register int i;
-//		register int cur_depth;
-//		register int k;
-//		char *tmp_read;
-//		
-//		if ( ( tmp_read = malloc( ( depth + 1 ) * sizeof( char ) ) ) == NULL )
-//			return; 
-//		
-//		Node *node = This;
-//		Node *tmp_node = NULL;
-//		Node *chi_node = NULL;
-//		
-//		for ( i = 0; i < seqLength ; ++i )
-//		{
-//			if ( targetSequence[ i ] == 'c' )
-//			{
-//				strncpy( tmp_read, targetSequence + i, depth );
-//				tmp_read[ depth ] = '\0';
-//				
-//				for ( cur_depth = 0; cur_depth < depth; ++cur_depth )
-//				{
-//					if ( ( chi_node = Node_GetChild( node, tmp_read[ cur_depth ] ) ) != NULL )
-//					{
-//						for ( k = num_readlengths; k--; )
-//						{
-//							if ( readLengths[ k ] == cur_depth )
-//							{
-//								Node_AddPosition( chi_node, i );
-//								break;
-//							}
-//						}
-//						
-//						node = chi_node;
-//					}				
-//					else
-//					{
-//						tmp_node = New_Node( tmp_read[ cur_depth ] );
-//						
-//						for ( k = num_readlengths; k--; )
-//						{
-//							if ( readLengths[ k ] == cur_depth )
-//							{
-//								Node_AddPosition( tmp_node, i );
-//								break;
-//							}
-//						}
-//						
-//						Node_AddChild( node, tmp_node );
-//						
-//						node = tmp_node;
-//					}
-//				}
-//				
-//				node = This;
-//			}
-//			
-//		}
-//		
-//		free( tmp_read );
-//	};
+	dispatch_block_t blockC = ^
+	{
+		register int i;
+		register int cur_depth;
+		register int k;
+		char *tmp_read;
+		
+		if ( ( tmp_read = malloc( ( depth + 1 ) * sizeof( char ) ) ) == NULL )
+			return; 
+		
+		Node *node = This;
+		Node *tmp_node = NULL;
+		Node *chi_node = NULL;
+		
+		for ( i = 0; i < seqLength ; ++i )
+		{
+			if ( targetSequence[ i ] == 'c' )
+			{
+				strncpy( tmp_read, targetSequence + i, depth );
+				tmp_read[ depth ] = '\0';
+				
+				for ( cur_depth = 0; cur_depth < depth; ++cur_depth )
+				{
+					if ( ( chi_node = Node_GetChild( node, tmp_read[ cur_depth ] ) ) != NULL )
+					{
+						for ( k = num_readlengths; k--; )
+						{
+							if ( readLengths[ k ] == cur_depth )
+							{
+								Node_AddPosition( chi_node, i );
+								break;
+							}
+						}
+						
+						node = chi_node;
+					}				
+					else
+					{
+						tmp_node = New_Node( tmp_read[ cur_depth ] );
+						
+						for ( k = num_readlengths; k--; )
+						{
+							if ( readLengths[ k ] == cur_depth )
+							{
+								Node_AddPosition( tmp_node, i );
+								break;
+							}
+						}
+						
+						Node_AddChild( node, tmp_node );
+						
+						node = tmp_node;
+					}
+				}
+				
+				node = This;
+			}
+			
+		}
+		
+		free( tmp_read );
+	};
 	
 	dispatch_block_t blockG = ^
 	{
@@ -332,7 +344,7 @@ Node_Build( Node *This, char *targetSequence, unsigned int depth, unsigned int *
 		
 		for ( i = 0; i < seqLength ; ++i )
 		{
-			if ( targetSequence[ i ] == 'g' || targetSequence[ i ] == 't' )
+			if ( targetSequence[ i ] == 'g' )
 			{
 				strncpy( tmp_read, targetSequence + i, depth );
 				tmp_read[ depth ] = '\0';
@@ -384,82 +396,77 @@ Node_Build( Node *This, char *targetSequence, unsigned int depth, unsigned int *
 		free( tmp_read );
 	};
 	
-//	dispatch_block_t blockT = ^
-//	{
-//		register int i;
-//		register int cur_depth;
-//		register int k;
-//		char *tmp_read;
-//		
-//		if ( ( tmp_read = malloc( ( depth + 1 ) * sizeof( char ) ) ) == NULL )
-//			return; 
-//
-//		Node *node = This;
-//		Node *tmp_node = NULL;
-//		Node *chi_node = NULL;
-//		
-//		for ( i = 0; i < seqLength ; ++i )
-//		{
-//			if ( targetSequence[ i ] == 't' )
-//			{
-//				strncpy( tmp_read, targetSequence + i, depth );
-//				tmp_read[ depth ] = '\0';
-//				
-//				for ( cur_depth = 0; cur_depth < depth; ++cur_depth )
-//				{
-//					if ( ( chi_node = Node_GetChild( node, tmp_read[ cur_depth ] ) ) != NULL )
-//					{
-//						for ( k = num_readlengths; k--; )
-//						{
-//							if ( readLengths[ k ] == cur_depth )
-//							{
-//								Node_AddPosition( chi_node, i );
-//								break;
-//							}
-//						}
-//						
-//						node = chi_node;
-//					}				
-//					else
-//					{
-//						tmp_node = New_Node( tmp_read[ cur_depth ] );
-//						
-//						for ( k = num_readlengths; k--; )
-//						{
-//							if ( readLengths[ k ] == cur_depth )
-//							{
-//								Node_AddPosition( tmp_node, i );
-//								break;
-//							}
-//						}
-//						
-//						Node_AddChild( node, tmp_node );
-//						
-//						node = tmp_node;
-//					}
-//				}
-//				
-//				node = This;
-//			}
-//		}
-//			
-//		free( tmp_read );
-//	};
+	dispatch_block_t blockT = ^
+	{
+		register int i;
+		register int cur_depth;
+		register int k;
+		char *tmp_read;
+		
+		if ( ( tmp_read = malloc( ( depth + 1 ) * sizeof( char ) ) ) == NULL )
+			return; 
+
+		Node *node = This;
+		Node *tmp_node = NULL;
+		Node *chi_node = NULL;
+		
+		for ( i = 0; i < seqLength ; ++i )
+		{
+			if ( targetSequence[ i ] == 't' )
+			{
+				strncpy( tmp_read, targetSequence + i, depth );
+				tmp_read[ depth ] = '\0';
+				
+				for ( cur_depth = 0; cur_depth < depth; ++cur_depth )
+				{
+					if ( ( chi_node = Node_GetChild( node, tmp_read[ cur_depth ] ) ) != NULL )
+					{
+						for ( k = num_readlengths; k--; )
+						{
+							if ( readLengths[ k ] == cur_depth )
+							{
+								Node_AddPosition( chi_node, i );
+								break;
+							}
+						}
+						
+						node = chi_node;
+					}				
+					else
+					{
+						tmp_node = New_Node( tmp_read[ cur_depth ] );
+						
+						for ( k = num_readlengths; k--; )
+						{
+							if ( readLengths[ k ] == cur_depth )
+							{
+								Node_AddPosition( tmp_node, i );
+								break;
+							}
+						}
+						
+						Node_AddChild( node, tmp_node );
+						
+						node = tmp_node;
+					}
+				}
+				
+				node = This;
+			}
+		}
+			
+		free( tmp_read );
+	};
 	
-	dispatch_group_async(group, aQueue, blockA);
-//	dispatch_group_async(group, cQueue, blockC);
-	dispatch_group_async(group, gQueue, blockG);
-//	dispatch_group_async(group, tQueue, blockT);
+	dispatch_group_async( bGroup, bQueue, blockA );
+	dispatch_group_async( bGroup, bQueue, blockC );
+	dispatch_group_async( bGroup, bQueue, blockG );
+	dispatch_group_async( bGroup, bQueue, blockT );
 	
-	dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+	dispatch_group_wait( bGroup, DISPATCH_TIME_FOREVER );
 	
-	dispatch_release(group);
-	
-//	dispatch_sync(aQueue, blockA);
-//	dispatch_sync(cQueue, blockC);
-//	dispatch_sync(gQueue, blockG);
-//	dispatch_sync(tQueue, blockT);
-	
+	dispatch_release( bGroup );
+		
 	return ( 0 );
 }
 
