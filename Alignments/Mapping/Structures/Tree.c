@@ -187,6 +187,11 @@ Node_Build( Node *This, char *targetSequence, unsigned int depth, unsigned int *
 	
 	dispatch_queue_t bQueue;
 	
+	dispatch_block_t blockA;
+	dispatch_block_t blockC;
+	dispatch_block_t blockG;
+	dispatch_block_t blockT;
+	
 	num_readlengths = intArrayLength( readLengths );
 
 	modifValues( readLengths, -1 );
@@ -197,267 +202,81 @@ Node_Build( Node *This, char *targetSequence, unsigned int depth, unsigned int *
 	
 	bQueue = dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0 );
 	
-	dispatch_block_t blockA = ^
-	{
-		register unsigned int i;
-		register unsigned int cur_depth;
-		register unsigned int k;
-		char *tmp_read;
-		
-		if ( ( tmp_read = malloc( ( depth + 1 ) * sizeof( char ) ) ) == NULL )
-			return; 
-		
-		Node *node = This;
-		Node *tmp_node = NULL;
-		Node *chi_node = NULL;
-		
-		for ( i = 0; i < seqLength ; ++i )
-		{
-			if ( targetSequence[ i ] == 'a' )
-			{
-				strncpy( tmp_read, targetSequence + i, depth );
-				tmp_read[ depth ] = '\0';
-				
-				for ( cur_depth = 0; cur_depth < depth; ++cur_depth )
-				{
-					if ( ( chi_node = Node_GetChild( node, tmp_read[ cur_depth ] ) ) != NULL )
-					{
-						if ( readLengths[ 0 ] <= cur_depth )
-						{
-							for ( k = num_readlengths; k--; )
-							{
-								if ( readLengths[ k ] == cur_depth )
-								{
-									Node_AddPosition( chi_node, i );
-									break;
-								}
-							}
-						}
-						
-						node = chi_node;
-					}				
-					else
-					{
-						tmp_node = New_Node( tmp_read[ cur_depth ] );
-						
-						if ( readLengths[ 0 ] <= cur_depth )
-						{
-							for ( k = num_readlengths; k--; )
-							{
-								if ( readLengths[ k ] == cur_depth )
-								{
-									Node_AddPosition( tmp_node, i );
-									break;
-								}
-							}
-						}
-						
-						Node_AddChild( node, tmp_node );
-						
-						node = tmp_node;
-					}
-				}
-				
-				node = This;
-			}
-		}
-			
-		free( tmp_read );
-	};
-	
-	dispatch_block_t blockC = ^
-	{
-		register int i;
-		register int cur_depth;
-		register int k;
-		char *tmp_read;
-		
-		if ( ( tmp_read = malloc( ( depth + 1 ) * sizeof( char ) ) ) == NULL )
-			return; 
-		
-		Node *node = This;
-		Node *tmp_node = NULL;
-		Node *chi_node = NULL;
-		
-		for ( i = 0; i < seqLength ; ++i )
-		{
-			if ( targetSequence[ i ] == 'c' )
-			{
-				strncpy( tmp_read, targetSequence + i, depth );
-				tmp_read[ depth ] = '\0';
-				
-				for ( cur_depth = 0; cur_depth < depth; ++cur_depth )
-				{
-					if ( ( chi_node = Node_GetChild( node, tmp_read[ cur_depth ] ) ) != NULL )
-					{
-						for ( k = num_readlengths; k--; )
-						{
-							if ( readLengths[ k ] == cur_depth )
-							{
-								Node_AddPosition( chi_node, i );
-								break;
-							}
-						}
-						
-						node = chi_node;
-					}				
-					else
-					{
-						tmp_node = New_Node( tmp_read[ cur_depth ] );
-						
-						for ( k = num_readlengths; k--; )
-						{
-							if ( readLengths[ k ] == cur_depth )
-							{
-								Node_AddPosition( tmp_node, i );
-								break;
-							}
-						}
-						
-						Node_AddChild( node, tmp_node );
-						
-						node = tmp_node;
-					}
-				}
-				
-				node = This;
-			}
-			
-		}
-		
-		free( tmp_read );
-	};
-	
-	dispatch_block_t blockG = ^
-	{
-		register unsigned int i;
-		register unsigned int cur_depth;
-		register unsigned int k;
-		char *tmp_read;
+	#define GEN_BLOCK( nt )																		\
+	^{																							\
+		register unsigned int i;																\
+		register unsigned int cur_depth;														\
+		register unsigned int k;																\
+		char *tmp_read;																			\
+																								\
+		if ( ( tmp_read = malloc( ( depth + 1 ) * sizeof( char ) ) ) == NULL )					\
+			return;																				\
+																								\
+		Node *node = This;																		\
+		Node *tmp_node = NULL;																	\
+		Node *chi_node = NULL;																	\
+																								\
+		for ( i = 0; i < seqLength ; ++i )														\
+		{																						\
+			if ( nt == targetSequence[ i ] )													\
+			{																					\
+				strncpy( tmp_read, targetSequence + i, depth );									\
+				tmp_read[ depth ] = '\0';														\
+																								\
+				for ( cur_depth = 0; cur_depth < depth; ++cur_depth )							\
+				{																				\
+					if ( ( chi_node = Node_GetChild( node, tmp_read[ cur_depth ] ) ) != NULL )	\
+					{																			\
+						if ( readLengths[ 0 ] <= cur_depth )									\
+						{																		\
+							for ( k = num_readlengths; k--; )									\
+							{																	\
+								if ( readLengths[ k ] == cur_depth )							\
+								{																\
+									Node_AddPosition( chi_node, i );							\
+									break;														\
+								}																\
+							}																	\
+						}																		\
+																								\
+						node = chi_node;														\
+					}																			\
+					else																		\
+					{																			\
+						tmp_node = New_Node( tmp_read[ cur_depth ] );							\
+																								\
+						if ( readLengths[ 0 ] <= cur_depth )									\
+						{																		\
+							for ( k = num_readlengths; k--; )									\
+							{																	\
+								if ( readLengths[ k ] == cur_depth )							\
+								{																\
+									Node_AddPosition( tmp_node, i );							\
+									break;														\
+								}																\
+							}																	\
+						}																		\
+																								\
+						Node_AddChild( node, tmp_node );										\
+																								\
+						node = tmp_node;														\
+					}																			\
+				}																				\
+																								\
+				node = This;																	\
+			}																					\
+		}																						\
+																								\
+		free( tmp_read );																		\
+	};																							\
 
-		if ( ( tmp_read = malloc( ( depth + 1 ) * sizeof( char ) ) ) == NULL )
-			return; 
-		
-		Node *node = This;
-		Node *tmp_node = NULL;
-		Node *chi_node = NULL;
-		
-		for ( i = 0; i < seqLength ; ++i )
-		{
-			if ( targetSequence[ i ] == 'g' )
-			{
-				strncpy( tmp_read, targetSequence + i, depth );
-				tmp_read[ depth ] = '\0';
-				
-				for ( cur_depth = 0; cur_depth < depth; ++cur_depth )
-				{
-					if ( ( chi_node = Node_GetChild( node, tmp_read[ cur_depth ] ) ) != NULL )
-					{
-						if ( readLengths[ 0 ] <= cur_depth )
-						{
-							for ( k = num_readlengths; k--; )
-							{
-								if ( readLengths[ k ] == cur_depth )
-								{
-									Node_AddPosition( chi_node, i );
-									break;
-								}
-							}
-						}
-						
-						node = chi_node;
-					}				
-					else
-					{
-						tmp_node = New_Node( tmp_read[ cur_depth ] );
-						
-						if ( readLengths[ 0 ] <= cur_depth )
-						{
-							for ( k = num_readlengths; k--; )
-							{
-								if ( readLengths[ k ] == cur_depth )
-								{
-									Node_AddPosition( tmp_node, i );
-									break;
-								}
-							}
-						}
-						
-						Node_AddChild( node, tmp_node );
-						
-						node = tmp_node;
-					}
-				}
-				
-				node = This;
-			}
-		}
-		
-		free( tmp_read );
-	};
 	
-	dispatch_block_t blockT = ^
-	{
-		register int i;
-		register int cur_depth;
-		register int k;
-		char *tmp_read;
-		
-		if ( ( tmp_read = malloc( ( depth + 1 ) * sizeof( char ) ) ) == NULL )
-			return; 
-
-		Node *node = This;
-		Node *tmp_node = NULL;
-		Node *chi_node = NULL;
-		
-		for ( i = 0; i < seqLength ; ++i )
-		{
-			if ( targetSequence[ i ] == 't' )
-			{
-				strncpy( tmp_read, targetSequence + i, depth );
-				tmp_read[ depth ] = '\0';
-				
-				for ( cur_depth = 0; cur_depth < depth; ++cur_depth )
-				{
-					if ( ( chi_node = Node_GetChild( node, tmp_read[ cur_depth ] ) ) != NULL )
-					{
-						for ( k = num_readlengths; k--; )
-						{
-							if ( readLengths[ k ] == cur_depth )
-							{
-								Node_AddPosition( chi_node, i );
-								break;
-							}
-						}
-						
-						node = chi_node;
-					}				
-					else
-					{
-						tmp_node = New_Node( tmp_read[ cur_depth ] );
-						
-						for ( k = num_readlengths; k--; )
-						{
-							if ( readLengths[ k ] == cur_depth )
-							{
-								Node_AddPosition( tmp_node, i );
-								break;
-							}
-						}
-						
-						Node_AddChild( node, tmp_node );
-						
-						node = tmp_node;
-					}
-				}
-				
-				node = This;
-			}
-		}
-			
-		free( tmp_read );
-	};
 	
+	blockA = GEN_BLOCK( 'a' );
+	blockC = GEN_BLOCK( 'c' );
+	blockG = GEN_BLOCK( 'g' );
+	blockT = GEN_BLOCK( 't' );
+		
 	dispatch_group_async( bGroup, bQueue, blockA );
 	dispatch_group_async( bGroup, bQueue, blockC );
 	dispatch_group_async( bGroup, bQueue, blockG );
